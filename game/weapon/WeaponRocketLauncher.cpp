@@ -445,11 +445,12 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 	};	
 
 
-	//This is the code responsible for the actual firing -ME
+	//This is the code responsible for the actual firing -me
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
-			Attack ( false, 5, 1000, 0, 1000.0f ); 
+			Attack ( false, 500, 1000, 0, 1000.0f );
+
 			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	

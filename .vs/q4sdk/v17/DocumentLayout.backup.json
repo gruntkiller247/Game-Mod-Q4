@@ -7,7 +7,15 @@
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponRocketLauncher.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 4\\Matt Mod\\def\\weapons\\rocketlauncher.def||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Projectile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,8 +25,47 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Weapon.cpp",
+              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.cpp",
+              "RelativeDocumentMoniker": "game\\Weapon.cpp",
+              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.cpp",
+              "RelativeToolTip": "game\\Weapon.cpp",
+              "ViewState": "AgIAADkLAAAAAAAAAAAMwMgJAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-15T19:06:27.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "rocketlauncher.def",
+              "DocumentMoniker": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 4\\Matt Mod\\def\\weapons\\rocketlauncher.def",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 4\\Matt Mod\\def\\weapons\\rocketlauncher.def",
+              "ToolTip": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 4\\Matt Mod\\def\\weapons\\rocketlauncher.def",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 4\\Matt Mod\\def\\weapons\\rocketlauncher.def",
+              "ViewState": "AgIAAJUBAAAAAAAAAAAhwIQBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001913|",
+              "WhenOpened": "2025-09-15T18:30:04.922Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Projectile.cpp",
+              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.cpp",
+              "RelativeDocumentMoniker": "game\\Projectile.cpp",
+              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.cpp",
+              "RelativeToolTip": "game\\Projectile.cpp",
+              "ViewState": "AgIAAJ4AAAAAAAAAAAAMwGUAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-15T19:03:09.87Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -29,26 +76,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "rocketlauncher.def",
-              "DocumentMoniker": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 4\\Matt Mod\\def\\weapons\\rocketlauncher.def",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 4\\Matt Mod\\def\\weapons\\rocketlauncher.def",
-              "ToolTip": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 4\\Matt Mod\\def\\weapons\\rocketlauncher.def",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 4\\Matt Mod\\def\\weapons\\rocketlauncher.def",
-              "ViewState": "AgIAADwAAAAAAAAAAAAAAFgAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001913|",
-              "WhenOpened": "2025-09-15T18:30:04.922Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "WeaponRocketLauncher.cpp",
               "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp",
               "RelativeDocumentMoniker": "game\\weapon\\WeaponRocketLauncher.cpp",
               "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp",
               "RelativeToolTip": "game\\weapon\\WeaponRocketLauncher.cpp",
-              "ViewState": "AgIAAK4BAAAAAAAAAAAMwMABAAASAAAAAAAAAA==",
+              "ViewState": "AgIAALEBAAAAAAAAAAAAAMUBAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-15T14:31:29.698Z",
               "EditorCaption": ""
