@@ -318,7 +318,7 @@ void idProjectile::FreeLightDef( void ) {
 =================
 idProjectile::Launch
 =================
-*/
+*/ //mattMod
 void idProjectile::Launch( const idVec3 &start, const idVec3 &dir, const idVec3 &pushVelocity, const float timeSinceFire, const float dmgPower ) {
 	float			fuse;
 	idVec3			velocity;

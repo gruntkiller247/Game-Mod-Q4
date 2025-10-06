@@ -25,6 +25,12 @@ public:
 	void					PreSave				( void );
 	void					PostSave			( void );
 
+	//mattMod
+	bool hasMods = false;
+	void chooseMods();
+	int projectileSpeed;
+	int addedDmg;
+
 
 #ifdef _XENON
 	virtual bool		AllowAutoAim			( void ) const { return false; }
@@ -66,6 +72,21 @@ private:
 
 CLASS_DECLARATION( rvWeapon, rvWeaponRocketLauncher )
 END_CLASS
+
+void rvWeaponRocketLauncher::chooseMods()
+{
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+	//Change mag size, Damage, projectile speed
+	setClipSize(temp.RandomInt(20)+5);
+
+	//reloadRate = temp.RandomFloat(); This shit crashes 100% of the time
+
+	addedDmg = temp.RandomInt(70);
+	projectileSpeed = temp.RandomInt();
+	//projectileSpeed = 1000;
+	
+}
 
 /*
 ================
@@ -130,6 +151,18 @@ void rvWeaponRocketLauncher::Spawn ( void ) {
 
 	SetState ( "Raise", 0 );	
 	SetRocketState ( "Rocket_Idle", 0 );
+
+	//mattMod
+	if (!hasMods)
+	{
+		chooseMods();
+	}
+	else
+	{
+		;
+	}
+	
+	
 }
 
 /*
@@ -211,6 +244,11 @@ rvWeaponRocketLauncher::OnLaunchProjectile
 ================
 */
 void rvWeaponRocketLauncher::OnLaunchProjectile ( idProjectile* proj ) {
+
+	//mattMod
+	proj->SetSpeed(projectileSpeed,0);
+	proj->damagePower = proj-> damagePower + addedDmg;
+
 	rvWeapon::OnLaunchProjectile(proj);
 
 	// Double check that its actually a guided projectile

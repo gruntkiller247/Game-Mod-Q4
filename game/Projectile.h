@@ -64,6 +64,9 @@ public :
 	virtual void			ReadFromSnapshot( const idBitMsgDelta &msg );
 
 	virtual bool			ClientStale( void );
+
+	//mattMod
+	float					damagePower; //made public
 	
 protected:
 	void					SpawnImpactEntities(const trace_t& collision, const idVec3 projectileDirection);
@@ -79,7 +82,7 @@ protected:
 		bool				isTracer					: 1;
 	} projectileFlags;
 
-	float					damagePower;
+	
 
 	renderLight_t			renderLight;
 	qhandle_t				lightDefHandle;				// handle to renderer light def

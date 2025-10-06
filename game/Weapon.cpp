@@ -3390,3 +3390,9 @@ void rvWeapon::GetDebugInfo(debugInfoProc_t proc, void* userData) {
 	idClass::GetDebugInfo(proc, userData);
 	proc("rvWeapon", "state", stateThread.GetState() ? stateThread.GetState()->state->name : "<none>", userData);
 }
+//mattMod
+
+void rvWeapon::setClipSize(int newClipSize)
+{
+	clipSize = newClipSize;
+}

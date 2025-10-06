@@ -21,8 +21,9 @@ public:
 
 	//mattMod Changes
 	void				chooseMods();
-	int dmgEdit;
+	int spreadEdit;
 	bool modsMade = false;
+	int numAttacks;
 
 protected:
 
@@ -58,9 +59,12 @@ void rvWeaponBlaster::chooseMods()
 	if (!modsMade)
 	{
 		//make mod choices
-		//3 mod changes: chargeTime, magSize, damage?
+		//3 mod changes: spread, charge time, num of projectiles
 
-		int num = rand() * 5;
+		idRandom temp;
+		temp.SetSeed(gameLocal.time);
+
+		int num = temp.RandomInt(5);
 		if (num == 0)
 			chargeTime = 0.1;
 		else if (num == 1)
@@ -74,9 +78,9 @@ void rvWeaponBlaster::chooseMods()
 		else
 			chargeTime = 0.8;
 
-		dmgEdit = rand() * 20;
-		dmgEdit = 1000;
-		rvWeapon::clipSize = rand() * 100;
+		spreadEdit = temp.RandomFloat();//rand() % 20 + 1;
+		numAttacks = temp.RandomInt(200);//rand() % 10;
+		//numAttacks = 100;
 
 		modsMade = true;
 	}
@@ -201,6 +205,14 @@ void rvWeaponBlaster::Spawn(void) {
 	fireForced = false;
 
 	Flashlight(owner->IsFlashlightOn());
+
+	
+
+	//mattMod
+
+	sys->DebugPrintf("Test output when spawning a blaster!");
+	//int dmgTest = spawnArgs.GetInt("damage");
+	//sys->DebugPrintf("Damage of the blaster is: " + dmgTest);
 
 
 	if (!modsMade)
@@ -459,7 +471,9 @@ stateResult_t rvWeaponBlaster::State_Fire(const stateParms_t& parms) {
 	};
 
 	//mattMod
-	int power = dmgEdit;
+	//int power = dmgEdit;
+
+
 	switch (parms.stage) {
 	case FIRE_INIT:
 
@@ -483,12 +497,12 @@ stateResult_t rvWeaponBlaster::State_Fire(const stateParms_t& parms) {
 		}
 
 		if (gameLocal.time - fireHeldTime > chargeTime) {
-			Attack(true, 1, spread, 0, power); //replaced 1.0f with power
+			Attack(true, numAttacks, spread, 0, 1.0f);
 			PlayEffect("fx_chargedflash", barrelJointView, false);
 			PlayAnim(ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames);
 		}
 		else {
-			Attack(false, 1, spread, 0, power);
+			Attack(false, numAttacks, spread, 0, 1.0f);
 			PlayEffect("fx_normalflash", barrelJointView, false);
 			PlayAnim(ANIMCHANNEL_ALL, "fire", parms.blendFrames);
 		}

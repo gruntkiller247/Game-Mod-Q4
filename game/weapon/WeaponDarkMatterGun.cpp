@@ -51,6 +51,9 @@ protected:
 	void				StopRings		( void );
 
 private:
+	//mattMod
+	bool modsMade = false;
+	void				chooseMods();
 
 	stateResult_t		State_Idle		( const stateParms_t& parms );
 	stateResult_t		State_Fire		( const stateParms_t& parms );
@@ -61,6 +64,11 @@ private:
 
 CLASS_DECLARATION( rvWeapon, rvWeaponDarkMatterGun )
 END_CLASS
+
+void chooseMods()
+{
+	//The fuck do I do to this weapon?
+}
 
 /*
 ================
@@ -89,6 +97,15 @@ rvWeaponDarkMatterGun::Spawn
 ================
 */
 void rvWeaponDarkMatterGun::Spawn ( void ) {
+
+	//mattMods
+	if (!modsMade)
+	{
+		chooseMods();
+	}
+	else
+		;
+
 	SetState ( "Raise", 0 );	
 	
 	InitRing ( RING_OUTER, "outer" );

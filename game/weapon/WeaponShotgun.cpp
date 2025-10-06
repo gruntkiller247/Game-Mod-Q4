@@ -19,6 +19,11 @@ public:
 	void					PreSave				( void );
 	void					PostSave			( void );
 
+	//mattMod Changes
+	void				chooseMods();
+	int spreadEdit;
+	bool modsMade = false;
+
 protected:
 	int						hitscans;
 
@@ -33,6 +38,24 @@ private:
 
 CLASS_DECLARATION( rvWeapon, rvWeaponShotgun )
 END_CLASS
+
+//mattMod
+void rvWeaponShotgun::chooseMods()
+{
+	if (!modsMade)
+	{
+		//make mod choices
+		//3 mod changes: Spread, dmg, wether it has DOT/Venon?
+
+		
+
+		modsMade = true;
+	}
+	else
+	{
+		sys->DebugPrintf("Mods already created for weapon");
+	}
+}
 
 /*
 ================
@@ -50,7 +73,17 @@ rvWeaponShotgun::Spawn
 void rvWeaponShotgun::Spawn( void ) {
 	hitscans   = spawnArgs.GetFloat( "hitscans" );
 	
-	SetState( "Raise", 0 );	
+	SetState( "Raise", 0 );
+
+	//mattMod
+	if (!modsMade)
+	{
+		chooseMods();
+	}
+	else
+	{
+		;
+	}
 }
 
 /*
