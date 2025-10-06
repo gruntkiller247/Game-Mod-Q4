@@ -13,6 +13,8 @@
 #include "ai/AI.h"
 #include "ai/AI_Manager.h"
 #include "client/ClientEffect.h"
+#include <string>
+//#include "Str.h"
 //#include "../renderer/tr_local.h"
 
 /***********************************************************************
@@ -2221,6 +2223,15 @@ idMat3 rvWeapon::ForeshortenAxis( const idMat3& axis ) const {
 	return idMat3( axis[0] * viewModelForeshorten, axis[1], axis[2] );
 }
 
+//mattMod stuff
+int rvWeapon::chooseMods()
+{	
+	//Change 3 different stats:
+	//Meant for each weapon
+}
+
+
+
 /*
 ================
 rvWeapon::GetAngleOffsets
@@ -2501,7 +2512,7 @@ void rvWeapon::AddToClip ( int amount ) {
 ================
 rvWeapon::Attack
 ================
-*/
+*/ //This is where the Attack() function is mattMod
 void rvWeapon::Attack( bool altAttack, int num_attacks, float spread, float fuseOffset, float power ) {
 	idVec3 muzzleOrigin;
 	idMat3 muzzleAxis;
@@ -3332,3 +3343,6 @@ void rvWeapon::GetDebugInfo ( debugInfoProc_t proc, void* userData ) {
 	idClass::GetDebugInfo ( proc, userData );
 	proc ( "rvWeapon", "state",	stateThread.GetState()?stateThread.GetState()->state->name : "<none>", userData );
 }
+
+
+//mattMod things

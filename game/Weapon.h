@@ -271,6 +271,9 @@ public:
 
 	idMat3				ForeshortenAxis				( const idMat3& axis ) const;
 
+	//mattMod stuff
+	int					chooseMods					();
+
 	// Script state management
 	struct weaponStateFlags_s {
 		bool		attack				:1;
@@ -399,6 +402,8 @@ public:
 public:
 
 	idDict							spawnArgs;
+	//mattMod stuff
+	int								numWeaponMods;
 
 protected:
 

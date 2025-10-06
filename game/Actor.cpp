@@ -2375,7 +2375,7 @@ damage		amount of damage being inflicted
 inflictor, attacker, dir, and point can be NULL for environmental effects
 
 Bleeding wounds and surface overlays are applied in the collision code that
-calls Damage()
+calls Damage() //damage attack is done here
 ============
 */
 void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, 
@@ -2463,7 +2463,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 // RAVEN BEGIN
 // MCG - added damage over time
 	if ( !inDamageEvent ) {
-		if ( damageDef->GetFloat( "dot_duration" ) ) {
+		if ( damageDef->GetFloat( "dot_duration" ) ) { //current spot matt
 			int endTime;
 			if ( damageDef->GetFloat( "dot_duration" ) == -1 ) {
 				endTime = -1;

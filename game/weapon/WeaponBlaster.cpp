@@ -24,6 +24,7 @@ protected:
 	bool				UpdateAttack		( void );
 	bool				UpdateFlashlight	( void );
 	void				Flashlight			( bool on );
+	bool				modsMade = false;
 
 private:
 
@@ -42,10 +43,26 @@ private:
 	stateResult_t		State_Flashlight		( const stateParms_t& parms );
 	
 	CLASS_STATES_PROTOTYPE ( rvWeaponBlaster );
+
+	void				chooseMods();
+	
 };
 
-CLASS_DECLARATION( rvWeapon, rvWeaponBlaster )
+CLASS_DECLARATION(rvWeapon, rvWeaponBlaster)
 END_CLASS
+
+//mattMods
+void rvWeaponBlaster::chooseMods()
+{
+	if (!modsMade)
+	{
+		//make mod choices
+	}
+	else
+	{
+		;
+	}
+}
 
 /*
 ================
@@ -394,9 +411,9 @@ stateResult_t rvWeaponBlaster::State_Charged ( const stateParms_t& parms ) {
 
 /*
 ================
-rvWeaponBlaster::State_Fire
+rvWeaponBlaster::State_Fire 
 ================
-*/
+*/ //This is where the Blaster Attacks/attack()
 stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 	enum {
 		FIRE_INIT,

@@ -385,7 +385,7 @@ stateResult_t WeaponNapalmGun::State_Idle( const stateParms_t& parms ) {
 ================
 WeaponNapalmGun::State_Fire
 ================
-*/
+*/ //Weapon fires here -me
 stateResult_t WeaponNapalmGun::State_Fire( const stateParms_t& parms ) {
 	enum {
 		STAGE_INIT,
