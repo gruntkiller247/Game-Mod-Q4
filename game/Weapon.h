@@ -403,7 +403,7 @@ public:
 
 	idDict							spawnArgs;
 	//mattMod stuff
-	int								numWeaponMods;
+	//int								numWeaponMods;
 
 protected:
 

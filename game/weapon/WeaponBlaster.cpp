@@ -24,7 +24,7 @@ protected:
 	bool				UpdateAttack		( void );
 	bool				UpdateFlashlight	( void );
 	void				Flashlight			( bool on );
-	bool				modsMade = false;
+	
 
 private:
 
@@ -44,7 +44,12 @@ private:
 	
 	CLASS_STATES_PROTOTYPE ( rvWeaponBlaster );
 
+	//mattMod Changes
 	void				chooseMods();
+	int chargeTimeMod;
+	int magMod;
+	int damageMod;
+	bool modsMade = false;
 	
 };
 
@@ -57,10 +62,18 @@ void rvWeaponBlaster::chooseMods()
 	if (!modsMade)
 	{
 		//make mod choices
+		//3 mod changes: chargeTime, magSize, damage
+		/*chargeTimeMod = rand() * 10;
+		magMod = rand() * 100;
+		damageMod = rand() * 20;*/
+
+		clipSize = 100;
+
+		modsMade = true;
 	}
 	else
 	{
-		;
+		sys->DebugPrintf("Mods already created for weapon");
 	}
 }
 
@@ -174,6 +187,16 @@ void rvWeaponBlaster::Spawn ( void ) {
 	fireForced			= false;
 			
 	Flashlight ( owner->IsFlashlightOn() );
+	
+	//mattMod
+	if (!modsMade)
+	{
+		chooseMods();
+	}
+	else
+	{
+		;
+	}
 }
 
 /*
@@ -413,7 +436,8 @@ stateResult_t rvWeaponBlaster::State_Charged ( const stateParms_t& parms ) {
 ================
 rvWeaponBlaster::State_Fire 
 ================
-*/ //This is where the Blaster Attacks/attack()
+*/ 
+//This is where the Blaster Attacks/attack()
 stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 	enum {
 		FIRE_INIT,
