@@ -83,7 +83,7 @@ void rvWeaponRocketLauncher::chooseMods()
 	//reloadRate = temp.RandomFloat(); This shit crashes 100% of the time
 
 	addedDmg = temp.RandomInt(70);
-	projectileSpeed = temp.RandomInt();
+	projectileSpeed = temp.RandomInt(); //I don't think this works
 	//projectileSpeed = 1000;
 	
 }

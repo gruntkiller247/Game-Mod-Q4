@@ -5,6 +5,8 @@
 #include "../Weapon.h"
 #include "../Projectile.h"
 
+float projectileSpeed;
+
 class rvWeaponDarkMatterGun : public rvWeapon {
 public:
 
@@ -18,6 +20,14 @@ public:
 	void					Restore				( idRestoreGame *savefile );
 	void					PreSave					( void );
 	void					PostSave				( void );
+
+	//mattMod
+	bool modsMade = false;
+	void				chooseMods();
+	float fireRate;
+	float spreadNew;
+	int totalOrbs;
+	
 
 #ifdef _XENON
 	virtual bool		AllowAutoAim			( void ) const { return false; }
@@ -51,9 +61,7 @@ protected:
 	void				StopRings		( void );
 
 private:
-	//mattMod
-	bool modsMade = false;
-	void				chooseMods();
+	
 
 	stateResult_t		State_Idle		( const stateParms_t& parms );
 	stateResult_t		State_Fire		( const stateParms_t& parms );
@@ -65,9 +73,23 @@ private:
 CLASS_DECLARATION( rvWeapon, rvWeaponDarkMatterGun )
 END_CLASS
 
-void chooseMods()
+void rvWeaponDarkMatterGun::chooseMods()
 {
 	//The fuck do I do to this weapon?
+	//number of orbs, spread, dot rate
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+	//fireRate = temp.RandomFloat();
+	//projectileSpeed = temp.RandomFloat();
+	//radiusDMGBonus = temp.RandomInt(20) + 20;
+
+	fireRate = 0;
+	projectileSpeed = 1;
+	//radiusDMGBonus = 100;
+	spreadNew = temp.RandomFloat()+20;
+	totalOrbs = temp.RandomInt(10);
+	//radiusTime = temp.RandomFloat2(20,40);
+
 }
 
 /*
@@ -331,9 +353,10 @@ stateResult_t rvWeaponDarkMatterGun::State_Fire ( const stateParms_t& parms ) {
 			StopRings ( );
 
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-			Attack ( false, 1, spread, 0, 1.0f );
-			PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
+			Attack ( false, totalOrbs, spreadNew, 0, 1.0f );
+			//PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
 			return SRESULT_STAGE ( STAGE_WAIT );
+			//return SRESULT_STAGE(STAGE_INIT);
 	
 		case STAGE_WAIT:		
 			if ( AnimDone ( ANIMCHANNEL_ALL, 2 ) || (gameLocal.isMultiplayer && gameLocal.time >= nextAttackTime) ) {
@@ -412,8 +435,9 @@ public :
 	void					Restore			( idRestoreGame *savefile );
 
 	virtual void			Think			( void );
-
 protected:
+	//mattMod
+	float dmgRate;
 
 	int					nextDamageTime;
 	const idDict*		radiusDamageDef;
@@ -445,6 +469,15 @@ rvDarkMatterProjectile::Spawn
 ================
 */
 void rvDarkMatterProjectile::Spawn ( void ) {
+
+	//mattMod
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+	dmgRate = temp.RandomFloat();
+	//dmgRate = 0;
+
+	this->SetSpeed(projectileSpeed,100);
+
 	nextDamageTime  = 0;
 	radiusDamageDef = gameLocal.FindEntityDefDict ( spawnArgs.GetString ( "def_radius_damage" ) );
 }
@@ -479,8 +512,10 @@ void rvDarkMatterProjectile::Think ( void ) {
 	idProjectile::Think ( );
 
 	if ( gameLocal.time > nextDamageTime ) {
-		gameLocal.RadiusDamage ( GetPhysics()->GetOrigin(), this, owner, owner, NULL, spawnArgs.GetString( "def_radius_damage" ), 1.0f, &hitCount );
-		nextDamageTime = gameLocal.time + SEC2MS ( spawnArgs.GetFloat ( "damageRate", ".05" ) );	
+		gameLocal.RadiusDamage ( GetPhysics()->GetOrigin(), this, owner, owner, NULL,  spawnArgs.GetString("def_radius_damage"), 1.0f, &hitCount);
+		
+		
+		nextDamageTime = gameLocal.time + SEC2MS ( dmgRate/*mattMod spawnArgs.GetFloat("damageRate", ".05")*/);
 	}
 }
 

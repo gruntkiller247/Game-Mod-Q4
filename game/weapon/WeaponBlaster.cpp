@@ -79,7 +79,7 @@ void rvWeaponBlaster::chooseMods()
 			chargeTime = 0.8;
 
 		spreadEdit = temp.RandomFloat();//rand() % 20 + 1;
-		numAttacks = temp.RandomInt(200);//rand() % 10;
+		numAttacks = temp.RandomInt(20);//rand() % 10;
 		//numAttacks = 100;
 
 		modsMade = true;

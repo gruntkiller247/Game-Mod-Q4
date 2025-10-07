@@ -23,6 +23,7 @@ public:
 	float				CRandomFloat( void );		// random number in the range [-1.0f, 1.0f]
 
 	static const int	MAX_RAND = 0x7fff;
+	float RandomFloat2(int, int);
 
 private:
 	int					seed;
@@ -54,6 +55,12 @@ ID_INLINE int idRandom::RandomInt( int max ) {
 
 ID_INLINE float idRandom::RandomFloat( void ) {
 	return ( RandomInt() / ( float )( idRandom::MAX_RAND + 1 ) );
+}
+
+//mattMod
+ID_INLINE float idRandom::RandomFloat2(int min, int max)
+{
+	return min + (RandomInt() / (float)(idRandom::MAX_RAND + 1)) * (max - min);
 }
 
 ID_INLINE float idRandom::CRandomFloat( void ) {
