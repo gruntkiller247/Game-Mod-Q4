@@ -25,8 +25,9 @@ public:
 	bool modsMade = false;
 	void				chooseMods();
 	float fireRate;
-	float spreadNew;
-	int totalOrbs;
+	float spreadNew; //This works
+	int totalOrbs;	//This works
+	//int radiusDMGBonus;
 	
 
 #ifdef _XENON
@@ -83,8 +84,8 @@ void rvWeaponDarkMatterGun::chooseMods()
 	//projectileSpeed = temp.RandomFloat();
 	//radiusDMGBonus = temp.RandomInt(20) + 20;
 
-	fireRate = 0;
-	projectileSpeed = 1;
+	//fireRate = 0;
+	//projectileSpeed = 1;
 	//radiusDMGBonus = 100;
 	spreadNew = temp.RandomFloat()+20;
 	totalOrbs = temp.RandomInt(10);
@@ -473,12 +474,12 @@ void rvDarkMatterProjectile::Spawn ( void ) {
 	//mattMod
 	idRandom temp;
 	temp.SetSeed(gameLocal.time);
-	dmgRate = temp.RandomFloat();
+	//dmgRate = temp.RandomFloat();
 	//dmgRate = 0;
 
 	this->SetSpeed(projectileSpeed,100);
 
-	nextDamageTime  = 0;
+	//nextDamageTime  = 0;
 	radiusDamageDef = gameLocal.FindEntityDefDict ( spawnArgs.GetString ( "def_radius_damage" ) );
 }
 

@@ -67,6 +67,10 @@ public :
 
 	//mattMod
 	float					damagePower; //made public
+
+	// set from def file in :Launch on both client and server
+	float					launchSpeed;
+	void	setSpeedMatt(float);
 	
 protected:
 	void					SpawnImpactEntities(const trace_t& collision, const idVec3 projectileDirection);
@@ -148,8 +152,7 @@ private:
 	int						launchTime;
 	idVec3					launchOrig;
 	idVec3					launchDir;
-	// set from def file in :Launch on both client and server
-	float					launchSpeed;
+	
 };
 
 ID_INLINE float idProjectile::GetSpeed ( void ) const {
@@ -359,3 +362,5 @@ private:
 #endif /* !__GAME_PROJECTILE_H__ */
 
 // RAVEN END
+
+//mattMod

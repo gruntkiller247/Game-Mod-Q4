@@ -3,36 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponDarkMatterGun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponDarkMatterGun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Projectile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponRocketLauncher.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\USERS\\MATTHEW\\SOURCE\\REPOS\\GRUNTKILLER247\\GAME-MOD-Q4\\IDLIB\\MATH\\RANDOM.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:IDLIB\\MATH\\RANDOM.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Projectile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Projectile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Weapon.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponGrenadeLauncher.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponGrenadeLauncher.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\IDLIB\\MATH\\RANDOM.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:IDLIB\\MATH\\RANDOM.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,84 +42,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "WeaponRocketLauncher.cpp",
-              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp",
-              "RelativeDocumentMoniker": "game\\weapon\\WeaponRocketLauncher.cpp",
-              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp",
-              "RelativeToolTip": "game\\weapon\\WeaponRocketLauncher.cpp",
-              "ViewState": "AgIAADwAAAAAAAAAAAAAAFUAAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-07T01:07:59.508Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "WeaponBlaster.cpp",
               "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponBlaster.cpp",
               "RelativeDocumentMoniker": "game\\weapon\\WeaponBlaster.cpp",
               "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponBlaster.cpp",
               "RelativeToolTip": "game\\weapon\\WeaponBlaster.cpp",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAFEAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAN4BAAAAAAAAAAASwPMBAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-06T23:47:10.385Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "WeaponDarkMatterGun.cpp",
-              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponDarkMatterGun.cpp",
-              "RelativeDocumentMoniker": "game\\weapon\\WeaponDarkMatterGun.cpp",
-              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponDarkMatterGun.cpp",
-              "RelativeToolTip": "game\\weapon\\WeaponDarkMatterGun.cpp",
-              "ViewState": "AgIAANABAAAAAAAAAAASwN4BAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-06T23:46:56.74Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Random.h",
-              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\idlib\\math\\Random.h",
-              "RelativeDocumentMoniker": "idlib\\math\\Random.h",
-              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\idlib\\math\\Random.h",
-              "RelativeToolTip": "idlib\\math\\Random.h",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAD4AAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-10-06T23:12:22.528Z",
+              "WhenOpened": "2025-10-10T14:40:25.45Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Projectile.cpp",
-              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.cpp",
-              "RelativeDocumentMoniker": "game\\Projectile.cpp",
-              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.cpp",
-              "RelativeToolTip": "game\\Projectile.cpp",
-              "ViewState": "AgIAADsBAAAAAAAAAAASwFgBAAAMAAAAAAAAAA==",
+              "Title": "WeaponGrenadeLauncher.cpp",
+              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponGrenadeLauncher.cpp",
+              "RelativeDocumentMoniker": "game\\weapon\\WeaponGrenadeLauncher.cpp",
+              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponGrenadeLauncher.cpp",
+              "RelativeToolTip": "game\\weapon\\WeaponGrenadeLauncher.cpp",
+              "ViewState": "AgIAAKYAAAAAAAAAAAASwLEAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-06T22:58:34.955Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Projectile.h",
-              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.h",
-              "RelativeDocumentMoniker": "game\\Projectile.h",
-              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.h",
-              "RelativeToolTip": "game\\Projectile.h",
-              "ViewState": "AgIAAEcBAAAAAAAAAAAiwFQBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-10-06T22:57:40.09Z",
+              "WhenOpened": "2025-10-10T14:11:14.175Z",
               "EditorCaption": ""
             },
             {
@@ -132,26 +80,78 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WeaponRocketLauncher.cpp",
+              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp",
+              "RelativeDocumentMoniker": "game\\weapon\\WeaponRocketLauncher.cpp",
+              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp",
+              "RelativeToolTip": "game\\weapon\\WeaponRocketLauncher.cpp",
+              "ViewState": "AgIAAEYAAAAAAAAAAAASwFcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-07T01:07:59.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "Random.h",
+              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\idlib\\math\\Random.h",
+              "RelativeDocumentMoniker": "idlib\\math\\Random.h",
+              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\idlib\\math\\Random.h",
+              "RelativeToolTip": "idlib\\math\\Random.h",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAADsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-10-06T23:12:22.528Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Projectile.cpp",
+              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.cpp",
+              "RelativeDocumentMoniker": "game\\Projectile.cpp",
+              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.cpp",
+              "RelativeToolTip": "game\\Projectile.cpp",
+              "ViewState": "AgIAADwIAAAAAAAAAAASwFAIAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-06T22:58:34.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Projectile.h",
+              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.h",
+              "RelativeDocumentMoniker": "game\\Projectile.h",
+              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Projectile.h",
+              "RelativeToolTip": "game\\Projectile.h",
+              "ViewState": "AgIAAFMBAAAAAAAAAAAAAEgAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-10-06T22:57:40.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Weapon.h",
               "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.h",
               "RelativeDocumentMoniker": "game\\Weapon.h",
               "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.h",
               "RelativeToolTip": "game\\Weapon.h",
-              "ViewState": "AgIAAIgBAAAAAAAAAAASwJ8BAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAHoBAAAAAAAAAAASwFUBAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-10-06T16:38:37.679Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Weapon.cpp",
               "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.cpp",
               "RelativeDocumentMoniker": "game\\Weapon.cpp",
               "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Weapon.cpp",
               "RelativeToolTip": "game\\Weapon.cpp",
-              "ViewState": "AgIAAEAKAAAAAAAAAAASwPcJAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAC8NAAAAAAAAAAASwEANAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-10-03T15:19:08.595Z",
               "EditorCaption": ""

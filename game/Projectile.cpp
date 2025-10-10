@@ -2122,3 +2122,9 @@ void rvMIRVProjectile::Event_LaunchWarheads( void ) {
 
 }
 // RAVEN END
+
+//mattMod
+void idProjectile::setSpeedMatt(float newLaunchSpeed)
+{
+	launchSpeed = newLaunchSpeed;
+}

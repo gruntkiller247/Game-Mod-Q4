@@ -28,7 +28,7 @@ public:
 	//mattMod
 	bool hasMods = false;
 	void chooseMods();
-	int projectileSpeed;
+	float projectileSpeed;
 	int addedDmg;
 
 
@@ -78,13 +78,14 @@ void rvWeaponRocketLauncher::chooseMods()
 	idRandom temp;
 	temp.SetSeed(gameLocal.time);
 	//Change mag size, Damage, projectile speed
+
 	setClipSize(temp.RandomInt(20)+5);
 
 	//reloadRate = temp.RandomFloat(); This shit crashes 100% of the time
 
-	addedDmg = temp.RandomInt(70);
-	projectileSpeed = temp.RandomInt(); //I don't think this works
-	//projectileSpeed = 1000;
+	addedDmg = temp.RandomInt(50);
+	projectileSpeed = temp.RandomFloat(); //I don't think this works
+	projectileSpeed = 100000000.0f;
 	
 }
 
@@ -121,6 +122,7 @@ void rvWeaponRocketLauncher::Spawn ( void ) {
 
 	spawnArgs.GetFloat ( "lockSlowdown", ".25", f );
 	attackDict.GetFloat ( "speed", "0", guideSpeedFast );
+	
 	guideSpeedSlow = guideSpeedFast * f;
 	
 	reloadRate = SEC2MS ( spawnArgs.GetFloat ( "reloadRate", ".8" ) );
@@ -246,8 +248,9 @@ rvWeaponRocketLauncher::OnLaunchProjectile
 void rvWeaponRocketLauncher::OnLaunchProjectile ( idProjectile* proj ) {
 
 	//mattMod
-	proj->SetSpeed(projectileSpeed,0);
-	proj->damagePower = proj-> damagePower + addedDmg;
+	proj->setSpeedMatt(projectileSpeed);
+	proj->damagePower = proj->damagePower;//addedDmg;
+	//proj->damagePower = 70;
 
 	rvWeapon::OnLaunchProjectile(proj);
 

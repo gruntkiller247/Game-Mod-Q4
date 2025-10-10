@@ -14,6 +14,10 @@ public:
 	virtual void			Spawn				( void );
 	void					PreSave				( void );
 	void					PostSave			( void );
+	//mattMod
+	bool hasMods = false;
+	void chooseMods();
+	int numProjectiles;
 
 #ifdef _XENON
 	virtual bool		AllowAutoAim			( void ) const { return false; }
@@ -34,6 +38,19 @@ private:
 CLASS_DECLARATION( rvWeapon, rvWeaponGrenadeLauncher )
 END_CLASS
 
+void rvWeaponGrenadeLauncher::chooseMods()
+{
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+
+	setClipSize(temp.RandomInt(20) + 5);
+	numProjectiles = temp.RandomInt(5);
+	//projectile speed
+
+
+	hasMods = true;
+}
+
 /*
 ================
 rvWeaponGrenadeLauncher::rvWeaponGrenadeLauncher
@@ -49,6 +66,14 @@ rvWeaponGrenadeLauncher::Spawn
 */
 void rvWeaponGrenadeLauncher::Spawn ( void ) {
 	SetState ( "Raise", 0 );	
+	if (!hasMods)
+	{
+		chooseMods();
+	}
+	else
+	{
+		;
+	}
 }
 
 /*
@@ -145,7 +170,8 @@ stateResult_t rvWeaponGrenadeLauncher::State_Fire ( const stateParms_t& parms ) 
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-			Attack ( false, 1, spread, 0, 1.0f );
+			
+			Attack ( false, numProjectiles, spread, 0, 1.0f );
 			PlayAnim ( ANIMCHANNEL_ALL, GetFireAnim(), 0 );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
