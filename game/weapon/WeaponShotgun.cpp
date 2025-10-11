@@ -46,8 +46,8 @@ void rvWeaponShotgun::chooseMods()
 	{
 		//make mod choices
 		//3 mod changes: Spread, dmg, wether it has DOT/Venon?
-
 		
+		//newHitscans = temp
 
 		modsMade = true;
 	}

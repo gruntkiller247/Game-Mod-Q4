@@ -71,6 +71,10 @@ public :
 	// set from def file in :Launch on both client and server
 	float					launchSpeed;
 	void	setSpeedMatt(float);
+
+	//mattMod
+	//int raidusDamageAdd;
+	//void setRadiusDamageAdd(int);
 	
 protected:
 	void					SpawnImpactEntities(const trace_t& collision, const idVec3 projectileDirection);

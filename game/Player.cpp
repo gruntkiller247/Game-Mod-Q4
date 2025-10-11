@@ -4278,6 +4278,7 @@ bool idPlayer::GiveItem( idItem *item ) {
 idPlayer::PowerUpModifier
 ===============
 */
+//mattMod
 float idPlayer::PowerUpModifier( int type ) {
 	float mod = 1.0f;
 

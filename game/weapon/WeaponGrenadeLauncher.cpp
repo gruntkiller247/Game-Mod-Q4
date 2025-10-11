@@ -18,6 +18,7 @@ public:
 	bool hasMods = false;
 	void chooseMods();
 	int numProjectiles;
+	int newPower;
 
 #ifdef _XENON
 	virtual bool		AllowAutoAim			( void ) const { return false; }
@@ -45,7 +46,14 @@ void rvWeaponGrenadeLauncher::chooseMods()
 
 	setClipSize(temp.RandomInt(20) + 5);
 	numProjectiles = temp.RandomInt(5);
+	spread = temp.RandomInt(50)+10;
+	//numProjectiles = 10;
+	//newPower = temp.RandomInt(50);
+	//setRadiusDamageAdd(temp.RandomInt(50);
 	//projectile speed
+
+	fireRate = temp.CRandomFloat();
+	//fireRate = 100000;
 
 
 	hasMods = true;

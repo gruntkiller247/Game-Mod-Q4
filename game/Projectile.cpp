@@ -19,6 +19,9 @@
 ===============================================================================
 */
 
+//mattMod
+int raidusDamageAdd = 0;
+
 static const float BOUNCE_SOUND_MIN_VELOCITY	= 200.0f;
 static const float BOUNCE_SOUND_MAX_VELOCITY	= 400.0f;
 
@@ -77,6 +80,8 @@ idProjectile::idProjectile( void ) {
 	launchOrig			= vec3_origin;
 	launchDir			= vec3_origin;
 	launchSpeed			= 0.0f;
+
+
 }
 
 /*
@@ -1108,7 +1113,11 @@ idProjectile::Event_RadiusDamage
 ================
 */
 void idProjectile::Event_RadiusDamage( idEntity *ignore ) {
-	const char *splash_damage = spawnArgs.GetString( "def_splash_damage" );
+	
+	//mattMod
+	//RandomInt(50);
+
+	const char* splash_damage = spawnArgs.GetString("def_splash_damage") + raidusDamageAdd;
 	if ( splash_damage[0] != '\0' ) {
 		gameLocal.RadiusDamage( physicsObj.GetOrigin(), this, owner, ignore, this, splash_damage, damagePower, &hitCount );
 	}
@@ -2128,3 +2137,8 @@ void idProjectile::setSpeedMatt(float newLaunchSpeed)
 {
 	launchSpeed = newLaunchSpeed;
 }
+
+/*void idProjectile::setRadiusDamageAdd(int newNum)
+{
+	raidusDamageAdd = newNum;
+}*/

@@ -85,7 +85,7 @@ void rvWeaponRocketLauncher::chooseMods()
 
 	addedDmg = temp.RandomInt(50);
 	projectileSpeed = temp.RandomFloat(); //I don't think this works
-	projectileSpeed = 100000000.0f;
+	//projectileSpeed = 100000000.0f;
 	
 }
 
@@ -249,7 +249,7 @@ void rvWeaponRocketLauncher::OnLaunchProjectile ( idProjectile* proj ) {
 
 	//mattMod
 	proj->setSpeedMatt(projectileSpeed);
-	proj->damagePower = proj->damagePower;//addedDmg;
+	proj->damagePower = proj->damagePower + addedDmg;
 	//proj->damagePower = 70;
 
 	rvWeapon::OnLaunchProjectile(proj);
