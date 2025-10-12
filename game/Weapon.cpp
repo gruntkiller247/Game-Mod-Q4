@@ -567,6 +567,11 @@ void rvWeapon::Init(idPlayer* _owner, const idDeclEntityDef* def, int _weaponInd
 
 	// Associate the weapon with the view model
 	viewModel->weapon = this;
+
+	//mattMod
+	//viewModel->weapon->chooseMods();
+
+
 }
 
 /*
@@ -3395,5 +3400,10 @@ void rvWeapon::GetDebugInfo(debugInfoProc_t proc, void* userData) {
 void rvWeapon::setClipSize(int newClipSize)
 {
 	clipSize = newClipSize;
+}
+
+void rvWeapon::setAmmoClip(int newSize)
+{
+	ammoClip = newSize;
 }
 

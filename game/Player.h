@@ -17,6 +17,8 @@
 
 
 
+
+
 extern const idEventDef EV_Player_GetButtons;
 extern const idEventDef EV_Player_GetMove;
 extern const idEventDef EV_Player_GetViewAngles;
@@ -273,9 +275,19 @@ public:
 class idPlayer : public idActor {
 public:
 	//mattMod
-	/*rvWeaponShotgun* persistentShotgun;
-	void saveShotgun(rvWeaponShotgun*);
-	rvWeaponShotgun* restoreShotgun();*/
+	/*struct shotgunMods_t {
+		bool modsMade;
+		int damageMod;
+		int clipSize;
+	};*/
+
+	bool modsMade = false;
+	int damageMod = 1;
+	int clipSize = 1;
+	bool killShotgun = false;
+
+	//shotgunMods_t shotgunMods;
+	
 
  	enum {
  		EVENT_IMPULSE = idEntity::EVENT_MAXEVENTS,

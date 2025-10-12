@@ -405,6 +405,7 @@ public:
 	//mattMod
 	void					chooseMods();
 	void					setClipSize(int);
+	void setAmmoClip(int);
 	
 
 protected:

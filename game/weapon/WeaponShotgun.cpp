@@ -6,7 +6,9 @@
 #include "../Player.h"
 
 
+
 const int SHOTGUN_MOD_AMMO = BIT(0);
+
 
 class rvWeaponShotgun : public rvWeapon {
 public:
@@ -28,6 +30,7 @@ public:
 	int newHitscans;
 	int damageMod;
 	int clipSize;
+	
 
 protected:
 	int						hitscans;
@@ -49,14 +52,16 @@ void rvWeaponShotgun::chooseMods()
 {
 	if (!modsMade)
 	{
+		gameLocal.Printf("Class: %s\n", GetClassname());
 		//make mod choices
 		//3 mod changes: Spread, dmg, wether it has DOT/Venon?
 		idRandom temp;
 		temp.SetSeed(gameLocal.time);
 		
 		//newHitscans = temp.RandomFloat2(10,20);
-		clipSize = temp.RandomInt(30);
-		setClipSize(clipSize);
+		this->clipSize = temp.RandomInt(15)+1;
+		setClipSize(this->clipSize);
+		//setAmmoClip(clipSize);// = clipSize; doesn't work
 		damageMod = temp.RandomInt(100);
 
 		//100, 20, 10, 5
@@ -84,6 +89,8 @@ void rvWeaponShotgun::chooseMods()
 		else
 		{
 			//change nothing and everything is normal
+			attackDict.Set("def_damage", "damage_pellet_2");
+			attackDict.Set("def_damage_flesh", "damage_pellet_2");
 		}
 
 
@@ -116,22 +123,49 @@ void rvWeaponShotgun::Spawn( void ) {
 	//gameLocal.Printf("Value of modsMade before call: " + modsMade);
 
 	//mattMod
-	/*if (owner->restoreShotgun())
-	{
-		modsMade = true;
-		spreadEdit = owner->restoreShotgun()->spreadEdit;
-		damageMod = owner->restoreShotgun()->damageMod;
-		clipSize = owner->restoreShotgun() ->clipSize;
-	}*/
+	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	
-	if (!modsMade)
-	{
-		chooseMods();
+	if (!p->modsMade || p->killShotgun) {
+		chooseMods(); 
+
+		p->modsMade = true;
+		p->damageMod = damageMod;
+		p->clipSize = this->clipSize;
 	}
-	else
-	{
-		sys->DebugPrintf("Mods already created for weapon");
+	else {
+		damageMod = p->damageMod;
+		this->clipSize = p->clipSize;
+		setClipSize(this->clipSize);
+		ammoClip = clipSize;;
+		modsMade = true;
+
+		if (damageMod >= 90)
+		{
+			//10% of the time do massive damage
+			attackDict.Set("def_damage", "damage_pellet_100");
+			attackDict.Set("def_damage_flesh", "damage_pellet_100");
+		}
+		else if (damageMod >= 70)
+		{
+			attackDict.Set("def_damage", "damage_pellet_20");
+			attackDict.Set("def_damage_flesh", "damage_pellet_20");
+		}
+		else if (damageMod >= 50)
+		{
+			attackDict.Set("def_damage", "damage_pellet_10");
+			attackDict.Set("def_damage_flesh", "damage_pellet_10");
+		}
+		else if (damageMod >= 30)
+		{
+			attackDict.Set("def_damage", "damage_pellet_5");
+			attackDict.Set("def_damage_flesh", "damage_pellet_5");
+		}
+		else
+		{
+			//change nothing and everything is normal
+			attackDict.Set("def_damage", "damage_pellet_2");
+			attackDict.Set("def_damage_flesh", "damage_pellet_2");
+		}
 	}
 
 	
