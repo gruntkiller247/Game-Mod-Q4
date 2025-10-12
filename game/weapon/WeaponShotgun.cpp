@@ -3,6 +3,8 @@
 
 #include "../Game_local.h"
 #include "../Weapon.h"
+#include "../Player.h"
+
 
 const int SHOTGUN_MOD_AMMO = BIT(0);
 
@@ -23,6 +25,9 @@ public:
 	void				chooseMods();
 	int spreadEdit;
 	bool modsMade = false;
+	int newHitscans;
+	int damageMod;
+	int clipSize;
 
 protected:
 	int						hitscans;
@@ -46,14 +51,47 @@ void rvWeaponShotgun::chooseMods()
 	{
 		//make mod choices
 		//3 mod changes: Spread, dmg, wether it has DOT/Venon?
+		idRandom temp;
+		temp.SetSeed(gameLocal.time);
 		
-		//newHitscans = temp
+		//newHitscans = temp.RandomFloat2(10,20);
+		clipSize = temp.RandomInt(30);
+		setClipSize(clipSize);
+		damageMod = temp.RandomInt(100);
+
+		//100, 20, 10, 5
+		if (damageMod >= 90)
+		{
+			//10% of the time do massive damage
+			attackDict.Set("def_damage", "damage_pellet_100");
+			attackDict.Set("def_damage_flesh", "damage_pellet_100");
+		}
+		else if (damageMod  >=70)
+		{
+			attackDict.Set("def_damage", "damage_pellet_20");
+			attackDict.Set("def_damage_flesh", "damage_pellet_20");
+		}
+		else if (damageMod >=50)
+		{
+			attackDict.Set("def_damage", "damage_pellet_10");
+			attackDict.Set("def_damage_flesh", "damage_pellet_10");
+		}
+		else if (damageMod  >= 30)
+		{
+			attackDict.Set("def_damage", "damage_pellet_5");
+			attackDict.Set("def_damage_flesh", "damage_pellet_5");
+		}
+		else
+		{
+			//change nothing and everything is normal
+		}
+
 
 		modsMade = true;
 	}
 	else
 	{
-		sys->DebugPrintf("Mods already created for weapon");
+		//sys->DebugPrintf("Mods already created for weapon");
 	}
 }
 
@@ -71,19 +109,34 @@ rvWeaponShotgun::Spawn
 ================
 */
 void rvWeaponShotgun::Spawn( void ) {
-	hitscans   = spawnArgs.GetFloat( "hitscans" );
+	//mattMod
+	hitscans = spawnArgs.GetFloat("hitscans"); 
 	
 	SetState( "Raise", 0 );
+	//gameLocal.Printf("Value of modsMade before call: " + modsMade);
 
 	//mattMod
+	/*if (owner->restoreShotgun())
+	{
+		modsMade = true;
+		spreadEdit = owner->restoreShotgun()->spreadEdit;
+		damageMod = owner->restoreShotgun()->damageMod;
+		clipSize = owner->restoreShotgun() ->clipSize;
+	}*/
+
+	
 	if (!modsMade)
 	{
 		chooseMods();
 	}
 	else
 	{
-		;
+		sys->DebugPrintf("Mods already created for weapon");
 	}
+
+	
+	//gameLocal.Printf("Value of modsMade after call: " + modsMade);
+	
 }
 
 /*
@@ -92,6 +145,14 @@ rvWeaponShotgun::Save
 ================
 */
 void rvWeaponShotgun::Save( idSaveGame *savefile ) const {
+	savefile->WriteInt(damageMod);
+	savefile->WriteBool(modsMade);
+	savefile->WriteInt(clipSize);
+
+	gameLocal.Printf("Saving damageMod as: %d\n", damageMod);
+	//gameLocal.Printf("Saving modsMade as: " + modsMade);
+	gameLocal.Printf("Saving clipSize as: %d" + clipSize);
+
 }
 
 /*
@@ -101,6 +162,33 @@ rvWeaponShotgun::Restore
 */
 void rvWeaponShotgun::Restore( idRestoreGame *savefile ) {
 	hitscans   = spawnArgs.GetFloat( "hitscans" );
+	savefile->ReadInt(damageMod);
+	savefile->ReadBool(modsMade);
+	savefile->ReadInt(clipSize);
+	setClipSize(clipSize);
+
+	gameLocal.Printf("Loading damageMod as: %d\n", damageMod);
+	//gameLocal.Printf("Loading modsMade as: " + damageMod);
+	gameLocal.Printf("Loading clipSize as: %d", clipSize);
+	
+	if (modsMade) {
+		if (damageMod >= 90) {
+			attackDict.Set("def_damage", "damage_pellet_100");
+			attackDict.Set("def_damage_flesh", "damage_pellet_100");
+		}
+		else if (damageMod >= 70) {
+			attackDict.Set("def_damage", "damage_pellet_20");
+			attackDict.Set("def_damage_flesh", "damage_pellet_20");
+		}
+		else if (damageMod >= 50) {
+			attackDict.Set("def_damage", "damage_pellet_10");
+			attackDict.Set("def_damage_flesh", "damage_pellet_10");
+		}
+		else if (damageMod >= 30) {
+			attackDict.Set("def_damage", "damage_pellet_5");
+			attackDict.Set("def_damage_flesh", "damage_pellet_5");
+		}
+	}
 }
 
 /*
@@ -194,10 +282,22 @@ stateResult_t rvWeaponShotgun::State_Fire( const stateParms_t& parms ) {
 		STAGE_INIT,
 		STAGE_WAIT,
 	};	
+
+
+
+
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+
+			//gameLocal.Printf("Shotgun firing with damage: %d\n", attackDict.GetInt("damage"));
+			gameLocal.Printf("Shotgun using damage def: %s\n", attackDict.GetString("def_damage"));
+			
+
+
 			Attack( false, hitscans, spread, 0, 1.0f );
+
+
 			PlayAnim( ANIMCHANNEL_ALL, "fire", 0 );	
 			return SRESULT_STAGE( STAGE_WAIT );
 	

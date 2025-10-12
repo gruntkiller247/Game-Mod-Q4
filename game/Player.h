@@ -3,6 +3,7 @@
 //
 // MERGE_DATE 07/07/2004
 
+//#include "weapon/WeaponShotgun.cpp"
 #ifndef __GAME_PLAYER_H__
 #define __GAME_PLAYER_H__
 
@@ -13,6 +14,8 @@
 	
 ===============================================================================
 */
+
+
 
 extern const idEventDef EV_Player_GetButtons;
 extern const idEventDef EV_Player_GetMove;
@@ -269,6 +272,10 @@ public:
 
 class idPlayer : public idActor {
 public:
+	//mattMod
+	/*rvWeaponShotgun* persistentShotgun;
+	void saveShotgun(rvWeaponShotgun*);
+	rvWeaponShotgun* restoreShotgun();*/
 
  	enum {
  		EVENT_IMPULSE = idEntity::EVENT_MAXEVENTS,
@@ -427,7 +434,6 @@ public:
 
 public:
 	CLASS_PROTOTYPE( idPlayer );
-
 							idPlayer();
 	virtual					~idPlayer();
 

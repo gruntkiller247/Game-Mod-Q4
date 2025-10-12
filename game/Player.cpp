@@ -830,7 +830,7 @@ int	idInventory::AmmoRegenTimeForWeaponIndex( int weaponIndex ) {
 idInventory::Give
 If checkOnly is true, check only for possibility of adding to inventory, don't actually add
 ==============
-*/
+*/ //mattMod
 bool idInventory::Give( idPlayer *owner, const idDict &spawnArgs, const char *statname, const char *value, int *idealWeapon, bool updateHud, bool dropped, bool checkOnly ) {
 	int						i;
 	const char				*pos;
@@ -14079,3 +14079,22 @@ int idPlayer::CanSelectWeapon(const char* weaponName)
 }
 
 // RITUAL END
+
+//mattMod
+/*
+void idPlayer::saveShotgun(rvWeaponShotgun* test)
+{
+	persistentShotgun = test;
+}
+
+rvWeaponShotgun* idPlayer::restoreShotgun()
+{
+	if (persistentShotgun != NULL)
+	{
+		return persistentShotgun;
+	}
+
+	gameLocal.Printf("Shotgun does not exsit in storage!");
+	return NULL;
+	
+}*/

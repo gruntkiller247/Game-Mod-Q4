@@ -140,6 +140,9 @@ public:
 	virtual void		ClientStale(void);
 	virtual void		ClientUnstale(void) {}
 	virtual void		Attack(bool altFire, int num_attacks, float spread, float fuseOffset, float power);
+
+
+
 	virtual void		GetDebugInfo(debugInfoProc_t proc, void* userData);
 	virtual void		SpectatorCycle(void) {}
 	virtual bool		NoFireWhileSwitching(void) const { return false; }
@@ -398,7 +401,7 @@ public:
 
 public:
 
-	idDict							spawnArgs;
+	idDict							spawnArgs; //mattMod: this Dictionary holds all values of a weapon's def
 	//mattMod
 	void					chooseMods();
 	void					setClipSize(int);

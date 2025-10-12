@@ -3396,3 +3396,4 @@ void rvWeapon::setClipSize(int newClipSize)
 {
 	clipSize = newClipSize;
 }
+
