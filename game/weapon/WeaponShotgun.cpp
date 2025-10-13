@@ -27,10 +27,10 @@ public:
 	void				chooseMods();
 	int spreadEdit;
 	bool modsMade = false;
-	int newHitscans;
+	//int newHitscans;
 	int damageMod;
 	int clipSize;
-	
+	int newHitscans;
 
 protected:
 	int						hitscans;
@@ -55,14 +55,15 @@ void rvWeaponShotgun::chooseMods()
 		gameLocal.Printf("Class: %s\n", GetClassname());
 		//make mod choices
 		//3 mod changes: Spread, dmg, wether it has DOT/Venon?
+
 		idRandom temp;
 		temp.SetSeed(gameLocal.time);
 		
-		//newHitscans = temp.RandomFloat2(10,20);
 		this->clipSize = temp.RandomInt(15)+1;
 		setClipSize(this->clipSize);
-		//setAmmoClip(clipSize);// = clipSize; doesn't work
 		damageMod = temp.RandomInt(100);
+
+		newHitscans = temp.RandomInt(4);
 
 		//100, 20, 10, 5
 		if (damageMod >= 90)
@@ -125,18 +126,19 @@ void rvWeaponShotgun::Spawn( void ) {
 	//mattMod
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p->modsMade || p->killShotgun) {
+	if (!p->shotgunModsMade || p->killShotgun) {
 		chooseMods(); 
-
-		p->modsMade = true;
-		p->damageMod = damageMod;
-		p->clipSize = this->clipSize;
+		p->killShotgun = false;
+		p->shotgunModsMade = true;
+		p->shotgunDamageMod = damageMod;
+		p->shotgunClipSize = this->clipSize;
+		p->shotgunHitscans = newHitscans; //this actually is spread
 	}
 	else {
-		damageMod = p->damageMod;
-		this->clipSize = p->clipSize;
+		damageMod = p->shotgunDamageMod;
+		this->clipSize = p->shotgunClipSize;
 		setClipSize(this->clipSize);
-		ammoClip = clipSize;;
+		//ammoClip = clipSize;
 		modsMade = true;
 
 		if (damageMod >= 90)
@@ -165,6 +167,27 @@ void rvWeaponShotgun::Spawn( void ) {
 			//change nothing and everything is normal
 			attackDict.Set("def_damage", "damage_pellet_2");
 			attackDict.Set("def_damage_flesh", "damage_pellet_2");
+		}
+
+		if (newHitscans == 1)
+		{
+			attackDict.Set("spread","1");
+		}
+		else if (newHitscans == 2)
+		{
+			attackDict.Set("spread", "3");
+		}
+		else if (newHitscans == 3)
+		{
+			attackDict.Set("spread", "5");
+		}
+		else if (newHitscans == 4)
+		{
+			attackDict.Set("spread", "15");
+		}
+		else
+		{
+			;
 		}
 	}
 
@@ -326,10 +349,10 @@ stateResult_t rvWeaponShotgun::State_Fire( const stateParms_t& parms ) {
 
 			//gameLocal.Printf("Shotgun firing with damage: %d\n", attackDict.GetInt("damage"));
 			gameLocal.Printf("Shotgun using damage def: %s\n", attackDict.GetString("def_damage"));
-			
+			gameLocal.Printf("Shotung using number of spread: %s\n", attackDict.GetString("spread"));
 
 
-			Attack( false, hitscans, spread, 0, 1.0f );
+			Attack( false, hitscans, newHitscans, 0, 1.0f );
 
 
 			PlayAnim( ANIMCHANNEL_ALL, "fire", 0 );	

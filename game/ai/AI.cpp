@@ -17,6 +17,8 @@ AI.cpp
 #include "../Projectile.h"
 #include "../spawner.h"
 #include "AI_Tactical.h"
+//mattMod
+
 
 const char* aiTalkMessageString [ ] = {
 	"None",
@@ -1608,7 +1610,7 @@ bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVe
 =====================
 idAI::Killed
 =====================
-*/
+*/ //mattMod where things die?
 void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location ) {
 	idAngles			ang;
 	const char*			modelDeath;
@@ -1752,6 +1754,9 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 			}
 		}
 		kv = spawnArgs.MatchPrefix( "def_drops", kv );
+
+		gameLocal.Printf("Killed the AI actor. Hopping to spawn a weapon!");
+		spawnWeapon();
 	}
 }
 
@@ -3684,6 +3689,11 @@ void idAI::OnDeath( void ){
 
 	ExecScriptFunction( funcs.death );
 
+	//mattMod
+	//This seems to be the right area to call for spawning a weapon!
+	gameLocal.Printf("Calling spawnWeapon in onDeath(): ");
+	spawnWeapon();
+
 /* DONT DROP ANYTHING FOR NOW
 	float rVal = gameLocal.random.RandomInt( 100 );
 
@@ -5148,4 +5158,120 @@ bool idAI::CheckDeathCausesMissionFailure( void )
 		}
 	}
 	return false;
+}
+
+
+//mattMod
+enum
+{
+	blaster,	//0
+	dmg,		//1
+	grenade,	//2
+	hype,		//3
+	light,		//4
+	machine,	//5
+	nail,		//6
+	napalm,		//7
+	rail,		//8
+	rocket,		//9
+	shotgun		//10
+
+};
+
+void idAI::spawnWeapon()
+{
+	rvWeapon test;
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+	int num = temp.RandomInt(11);
+
+	//idVec3 origin = GetPhysics()->GetOrigin();
+	const idVec3& org = physicsObj.GetOrigin();
+	idAngles angles = physicsObj.GetAxis().ToAngles();
+
+	const char* name;
+	num = shotgun;
+
+	switch (num) {
+	case blaster:
+		gameLocal.Printf("Spawned: blaster\n");
+		name = "weapon_blaster";
+		//test = spawnArgs;
+		break;
+
+	case dmg:
+		gameLocal.Printf("Spawned: dmg\n");
+		name = "weapon_dmg";
+		break;
+
+	case grenade:
+		gameLocal.Printf("Spawned: grenade\n");
+		name = "weapon_grenadelauncher";
+		break;
+
+	case hype:
+		gameLocal.Printf("Spawned: hype\n");
+		name = "weapon_hyperblaster";
+		break;
+
+	case light:
+		gameLocal.Printf("Spawned: light\n");
+		name = "weapon_lightninggun";
+		break;
+
+	case machine:
+		gameLocal.Printf("Spawned: machine\n");
+		name = "weapon_machinegun";
+		break;
+
+	case nail:
+		gameLocal.Printf("Spawned: nail\n");
+		name = "weapon_nailgun";
+		break;
+
+	case napalm:
+		gameLocal.Printf("Spawned: napalm\n");
+		name = "weapon_napalmgun";
+		break;
+
+	case rail:
+		gameLocal.Printf("Spawned: rail\n");
+		name = "weapon_railgun";
+		break;
+
+	case rocket:
+		gameLocal.Printf("Spawned: rocket\n");
+		name = "weapon_rocketlauncher";
+		break;
+
+	case shotgun:
+		gameLocal.Printf("Spawned: shotgun\n");
+		//name = "weapon_shotgun";
+		name = "moveable_item_shotgun";
+		break;
+
+	default:
+		gameLocal.Printf("Weapon number is out of bounds!: %d", num);
+		break;
+	}
+	
+
+
+	idDict args;
+	args.Set("classname", name);
+
+	idEntity* weapon = NULL;
+	gameLocal.SpawnEntityDef(args, &weapon);
+
+	if (weapon) {
+		weapon->SetOrigin(org);
+		weapon->SetAngles(angles);
+		gameLocal.Printf("Spawned a weapon on kill!");
+	}
+	else
+	{
+		gameLocal.Printf("Could not spawn weapon on kill!");
+	}
+	
+
 }

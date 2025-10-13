@@ -281,10 +281,11 @@ public:
 		int clipSize;
 	};*/
 
-	bool modsMade = false;
-	int damageMod = 1;
-	int clipSize = 1;
+	bool shotgunModsMade = false;
+	int shotgunDamageMod = 1;
+	int shotgunClipSize = 1;
 	bool killShotgun = false;
+	int shotgunHitscans = 1; //this is actually spread
 
 	//shotgunMods_t shotgunMods;
 	

@@ -737,6 +737,8 @@ protected:
 	*/
 
 public:
+	//mattMod
+	void spawnWeapon(void);
 
 	// enemy managment
 	bool					SetEnemy						( idEntity *newEnemy );
