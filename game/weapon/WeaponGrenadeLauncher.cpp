@@ -18,7 +18,9 @@ public:
 	bool hasMods = false;
 	void chooseMods();
 	int numProjectiles;
-	int newPower;
+	int spreadNew;
+	float newFuse;
+	int clipSize;
 
 #ifdef _XENON
 	virtual bool		AllowAutoAim			( void ) const { return false; }
@@ -44,16 +46,33 @@ void rvWeaponGrenadeLauncher::chooseMods()
 	idRandom temp;
 	temp.SetSeed(gameLocal.time);
 
-	setClipSize(temp.RandomInt(20) + 5);
-	numProjectiles = temp.RandomInt(5);
-	spread = temp.RandomInt(50)+10;
-	//numProjectiles = 10;
-	//newPower = temp.RandomInt(50);
-	//setRadiusDamageAdd(temp.RandomInt(50);
-	//projectile speed
+	this->clipSize = temp.RandomInt(20) + 7;
+	setClipSize(clipSize);
 
-	fireRate = temp.CRandomFloat();
-	//fireRate = 100000;
+	numProjectiles = temp.RandomInt(5);
+	spreadNew = temp.RandomInt(5); //for clarity
+	newFuse = temp.RandomInt(5);
+
+	if (newFuse == 0)
+	{
+		attackDict.Set("projectile_grenade", "projectile_grenade_fuse1");
+	}
+	else if (newFuse == 1)
+	{
+		attackDict.Set("projectile_grenade", "projectile_grenade_fuse2");
+	}
+	else if (newFuse == 2)
+	{
+		attackDict.Set("projectile_grenade", "projectile_grenade_fuse1_5");
+	}
+	else if (newFuse == 3)
+	{
+		attackDict.Set("projectile_grenade", "projectile_grenade_fuse3");
+	}
+	else
+	{
+		//default values
+	}
 
 
 	hasMods = true;
@@ -74,14 +93,50 @@ rvWeaponGrenadeLauncher::Spawn
 */
 void rvWeaponGrenadeLauncher::Spawn ( void ) {
 	SetState ( "Raise", 0 );	
-	if (!hasMods)
-	{
+
+	idPlayer* p = static_cast<idPlayer*>(owner);
+
+	if (!p->glModsMade || p->killGL) {
 		chooseMods();
+		p->killGL = false;
+		p->glModsMade = true;
+		p->glNumAttack = numProjectiles;
+		p->glSpread = spreadNew;
+		p-> glFuse = newFuse;
+		p-> glClipSize = clipSize;
 	}
 	else
 	{
-		;
+		numProjectiles = p->glNumAttack;
+		spreadNew = p->glNumAttack;
+		newFuse = p->glFuse;
+		clipSize = p-> glClipSize;
+		setClipSize(p->glClipSize);
+
+		if (newFuse == 0)
+		{
+			attackDict.Set("projectile_grenade", "projectile_grenade_fuse1");
+		}
+		else if (newFuse == 1)
+		{
+			attackDict.Set("projectile_grenade", "projectile_grenade_fuse2");
+		}
+		else if (newFuse == 2)
+		{
+			attackDict.Set("projectile_grenade", "projectile_grenade_fuse1_5");
+		}
+		else if (newFuse == 3)
+		{
+			attackDict.Set("projectile_grenade", "projectile_grenade_fuse3");
+		}
+		else
+		{
+			//default values
+		}
+
 	}
+	
+
 }
 
 /*
@@ -179,7 +234,9 @@ stateResult_t rvWeaponGrenadeLauncher::State_Fire ( const stateParms_t& parms ) 
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 			
-			Attack ( false, numProjectiles, spread, 0, 1.0f );
+			gameLocal.Printf("Grenade Launcher fuse: %d\n", attackDict.GetString("fuse"));
+
+			Attack ( false, numProjectiles, spreadNew, 0, 1.0f );
 			PlayAnim ( ANIMCHANNEL_ALL, GetFireAnim(), 0 );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	

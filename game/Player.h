@@ -302,7 +302,21 @@ public:
 	int rocketProjectileSpeed = 1;
 	int rocketNumAttack = 1;
 	int rocketClipSize = 1;
-	
+
+	//mod Values for the DMG
+	bool dmgModsMade = false;
+	bool killDMG = false;
+	int dmgFireRate =1;
+	float dmgSpread =1; 
+	int dmgTotalOrbs =1;
+
+	//mod Values for grenadeLauncher
+	bool glModsMade = false;
+	bool killGL = false;
+	int glSpread = 1;
+	int glNumAttack = 1;
+	float glFuse = 1.0;
+	int glClipSize = 1;
 
  	enum {
  		EVENT_IMPULSE = idEntity::EVENT_MAXEVENTS,

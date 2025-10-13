@@ -349,7 +349,7 @@ stateResult_t rvWeaponShotgun::State_Fire( const stateParms_t& parms ) {
 
 			//gameLocal.Printf("Shotgun firing with damage: %d\n", attackDict.GetInt("damage"));
 			gameLocal.Printf("Shotgun using damage def: %s\n", attackDict.GetString("def_damage"));
-			gameLocal.Printf("Shotung using number of spread: %d\n", attackDict.GetString("spread"));
+			gameLocal.Printf("Shotgun using number of spread: %d\n", attackDict.GetString("spread"));
 
 
 			Attack( false, hitscans, newHitscans, 0, 1.0f );

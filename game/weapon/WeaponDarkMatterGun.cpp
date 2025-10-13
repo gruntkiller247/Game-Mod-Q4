@@ -24,10 +24,10 @@ public:
 	//mattMod
 	bool modsMade = false;
 	void				chooseMods();
-	float fireRate;
+	int fireRate;
 	float spreadNew; //This works
 	int totalOrbs;	//This works
-	//int radiusDMGBonus;
+
 	
 
 #ifdef _XENON
@@ -87,9 +87,27 @@ void rvWeaponDarkMatterGun::chooseMods()
 	//fireRate = 0;
 	//projectileSpeed = 1;
 	//radiusDMGBonus = 100;
-	spreadNew = temp.RandomFloat()+20;
-	totalOrbs = temp.RandomInt(10);
+	spreadNew = temp.RandomInt(5);
+	totalOrbs = temp.RandomInt(5);
+	fireRate = temp.RandomInt(3);
 	//radiusTime = temp.RandomFloat2(20,40);
+
+	if (fireRate == 0)
+	{
+		attackDict.Set("def_damage", "entityDef weapon_dmg_fr_0");
+	}
+	else if (fireRate == 1)
+	{
+		attackDict.Set("def_damage", "entityDef weapon_dmg_fr_10");
+	}
+	else if(fireRate == 2)
+	{
+		attackDict.Set("def_damage", "entityDef weapon_dmg_fr_5");
+	}
+	else
+	{
+		//the default value
+	}
 
 }
 
@@ -122,12 +140,42 @@ rvWeaponDarkMatterGun::Spawn
 void rvWeaponDarkMatterGun::Spawn ( void ) {
 
 	//mattMods
-	if (!modsMade)
+
+	idPlayer* p = static_cast<idPlayer*>(owner);
+
+	if (!p->dmgModsMade || p->killDMG)
 	{
-		chooseMods();
+		p->killDMG = false;
+		p->dmgModsMade = true;
+		p->	dmgFireRate = fireRate;
+		p->dmgSpread = spreadNew;
+		p->dmgTotalOrbs = totalOrbs;
 	}
 	else
-		;
+	{
+		modsMade = true;
+		fireRate = p->dmgFireRate;
+		spreadNew = p->dmgSpread;
+		totalOrbs = p->dmgTotalOrbs;
+
+
+		if (fireRate == 0)
+		{
+			attackDict.Set("def_damage", "entityDef weapon_dmg_fr_0");
+		}
+		else if (fireRate == 1)
+		{
+			attackDict.Set("def_damage", "entityDef weapon_dmg_fr_10");
+		}
+		else if (fireRate == 2)
+		{
+			attackDict.Set("def_damage", "entityDef weapon_dmg_fr_5");
+		}
+		else
+		{
+			//the default value
+		}
+	}
 
 	SetState ( "Raise", 0 );	
 	
@@ -353,6 +401,12 @@ stateResult_t rvWeaponDarkMatterGun::State_Fire ( const stateParms_t& parms ) {
 		case STAGE_INIT:
 			StopRings ( );
 
+			//int fireRate;
+			//float spreadNew; //This works
+			//int totalOrbs;	//This works
+			gameLocal.Printf("DMG fireRate: %d\n", fireRate);
+			
+
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 			Attack ( false, totalOrbs, spreadNew, 0, 1.0f );
 			//PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
@@ -472,14 +526,9 @@ rvDarkMatterProjectile::Spawn
 void rvDarkMatterProjectile::Spawn ( void ) {
 
 	//mattMod
-	idRandom temp;
-	temp.SetSeed(gameLocal.time);
-	//dmgRate = temp.RandomFloat();
-	//dmgRate = 0;
 
-	this->SetSpeed(projectileSpeed,100);
 
-	//nextDamageTime  = 0;
+
 	radiusDamageDef = gameLocal.FindEntityDefDict ( spawnArgs.GetString ( "def_radius_damage" ) );
 }
 

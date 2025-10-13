@@ -79,9 +79,11 @@ void rvWeaponRocketLauncher::chooseMods()
 	idRandom temp;
 	temp.SetSeed(gameLocal.time);
 
-	clipSize=temp.RandomInt(20);
+	clipSize=temp.RandomInt(20)+5;
+	setClipSize(clipSize);
 
-	numAttack = temp.RandomInt(4);
+
+	numAttack = temp.RandomInt(4)+2;
 
 	//reloadRate = temp.RandomFloat(); This shit crashes 100% of the time
 	projectileSpeed = temp.RandomInt(6);
@@ -196,6 +198,7 @@ void rvWeaponRocketLauncher::Spawn ( void ) {
 		numAttack = p->rocketNumAttack;
 		projectileSpeed = p->rocketProjectileSpeed;
 		setClipSize(p->rocketClipSize);
+		
 
 		if (projectileSpeed == 0) //10, 100, 500, 1000, 9999, default
 		{
@@ -544,8 +547,18 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 	};	
 	switch ( parms.stage ) {
 		case STAGE_INIT:
-			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
-			Attack ( false, 1, spread, 0, 1.0f );
+			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));	
+
+			//mattMod
+			//	int projectileSpeed;
+			//int numAttack;
+			//int clipSize;
+			gameLocal.Printf("RPG projectile speed: %s\n", attackDict.GetString("speed"));
+			gameLocal.Printf("RPG numAttack: %i\n",numAttack);
+			//gameLocal.Printf("RPG numberOfShots: %i",numAttack);
+			//gameLocal.Printf("RPG clipSize: %i", clipSize);
+
+			Attack ( false, numAttack, spread, 0, 1.0f );
 			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
