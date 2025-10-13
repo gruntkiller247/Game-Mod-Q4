@@ -24,6 +24,7 @@ public:
 	int spreadEdit;
 	bool modsMade = false;
 	int numAttacks;
+	int checkCharge;
 
 protected:
 
@@ -64,22 +65,22 @@ void rvWeaponBlaster::chooseMods()
 		idRandom temp;
 		temp.SetSeed(gameLocal.time);
 
-		int num = temp.RandomInt(5);
-		if (num == 0)
-			chargeTime = 0.1;
-		else if (num == 1)
-			chargeTime = 0.3;
-		else if (num == 2)
-			chargeTime = 0.5;
-		else if (num == 3)
-			chargeTime = 0.7;
-		else if (num == 4)
-			chargeTime = 0.9;
+		checkCharge = temp.RandomInt(5);
+		if (checkCharge == 0)
+			chargeTime = 1;
+		else if (checkCharge == 1)
+			chargeTime = 7;
+		else if (checkCharge == 2)
+			chargeTime = 10;
+		else if (checkCharge == 3)
+			chargeTime = 15;
+		else if (checkCharge == 4)
+			chargeTime = 20;
 		else
-			chargeTime = 0.8;
+			chargeTime = 3.0;
 
 		spreadEdit = temp.RandomFloat();//rand() % 20 + 1;
-		numAttacks = temp.RandomInt(20);//rand() % 10;
+		numAttacks = temp.RandomInt(100);//rand() % 10;
 		//numAttacks = 100;
 
 		modsMade = true;
@@ -209,19 +210,41 @@ void rvWeaponBlaster::Spawn(void) {
 	
 
 	//mattMod
-
-	sys->DebugPrintf("Test output when spawning a blaster!");
 	//int dmgTest = spawnArgs.GetInt("damage");
 	//sys->DebugPrintf("Damage of the blaster is: " + dmgTest);
 
+	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!modsMade)
+
+	if (!p->blasterModsMade || p->killBlaster)
 	{
 		chooseMods();
+		p->killBlaster = false;
+		p->blasterModsMade = true;
+		p->blasterNumAttack = numAttacks;
+		p->blasterSpreadEdit = spreadEdit;
+		p->blasterChargeTime = checkCharge;
 	}
 	else
 	{
-		;
+		numAttacks = p->blasterNumAttack;
+		spreadEdit = p->blasterSpreadEdit;
+		checkCharge = p->blasterChargeTime;
+		modsMade = true;
+
+		//these are arbitrary magic numbers just to mess with chargeTime
+		if (checkCharge == 0)
+			chargeTime = 0.1;
+		else if (checkCharge == 1)
+			chargeTime = 0.7;
+		else if (checkCharge == 2)
+			chargeTime = 1.0;
+		else if (checkCharge == 3)
+			chargeTime = 1.5;
+		else if (checkCharge == 4)
+			chargeTime = 2.0;
+		else
+			chargeTime = 3.0;
 	}
 }
 
@@ -496,13 +519,16 @@ stateResult_t rvWeaponBlaster::State_Fire(const stateParms_t& parms) {
 			return SRESULT_DONE;
 		}
 
+		gameLocal.Printf("Blaster using chargeTime: %i\n", chargeTime);
+		gameLocal.Printf("Blaster using spread of: %i\n", spread + spreadEdit);
+
 		if (gameLocal.time - fireHeldTime > chargeTime) {
-			Attack(true, numAttacks, spread, 0, 1.0f);
+			Attack(true, numAttacks, spread+spreadEdit, 0, 1.0f);
 			PlayEffect("fx_chargedflash", barrelJointView, false);
 			PlayAnim(ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames);
 		}
 		else {
-			Attack(false, numAttacks, spread, 0, 1.0f);
+			Attack(false, numAttacks, spread+spreadEdit, 0, 1.0f);
 			PlayEffect("fx_normalflash", barrelJointView, false);
 			PlayAnim(ANIMCHANNEL_ALL, "fire", parms.blendFrames);
 		}

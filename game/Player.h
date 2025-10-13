@@ -281,13 +281,27 @@ public:
 		int clipSize;
 	};*/
 
+	//mods Values for the Shotgun
 	bool shotgunModsMade = false;
 	int shotgunDamageMod = 1;
 	int shotgunClipSize = 1;
 	bool killShotgun = false;
 	int shotgunHitscans = 1; //this is actually spread
-
 	//shotgunMods_t shotgunMods;
+
+	//mod Values for the Blaster
+	bool blasterModsMade = false;
+	bool killBlaster = false;
+	int blasterNumAttack = 1;
+	int blasterSpreadEdit = 1;
+	int blasterChargeTime = 1;
+
+	//mod Values for the RPG
+	bool rocketModsMade = false;
+	bool killRPG = false;
+	int rocketProjectileSpeed = 1;
+	int rocketNumAttack = 1;
+	int rocketClipSize = 1;
 	
 
  	enum {

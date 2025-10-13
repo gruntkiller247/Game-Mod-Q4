@@ -26,10 +26,11 @@ public:
 	void					PostSave			( void );
 
 	//mattMod
-	bool hasMods = false;
+	bool modsMade = false;
 	void chooseMods();
-	float projectileSpeed;
-	int addedDmg;
+	int projectileSpeed;
+	int numAttack;
+	int clipSize;
 
 
 #ifdef _XENON
@@ -77,15 +78,38 @@ void rvWeaponRocketLauncher::chooseMods()
 {
 	idRandom temp;
 	temp.SetSeed(gameLocal.time);
-	//Change mag size, Damage, projectile speed
 
-	setClipSize(temp.RandomInt(20)+5);
+	clipSize=temp.RandomInt(20);
+
+	numAttack = temp.RandomInt(4);
 
 	//reloadRate = temp.RandomFloat(); This shit crashes 100% of the time
+	projectileSpeed = temp.RandomInt(6);
 
-	addedDmg = temp.RandomInt(50);
-	projectileSpeed = temp.RandomFloat(); //I don't think this works
-	//projectileSpeed = 100000000.0f;
+	if (projectileSpeed == 0) //10, 100, 500, 1000, 9999, default
+	{
+		attackDict.Set("projectile_rocket", " projectile_rocket_s10");
+	}
+	else if (projectileSpeed == 1)
+	{
+		attackDict.Set("projectile_rocket","projectile_rocket_s100");
+	}
+	else if (projectileSpeed == 2)
+	{
+		attackDict.Set("projectile_rocket", "projectile_rocket_500");
+	}
+	else if (projectileSpeed == 3)
+	{
+		attackDict.Set("projectile_rocket", "projectile_rocket_1000");
+	}
+	else if (projectileSpeed == 4)
+	{
+		attackDict.Set("projectile_rocket", "projectile_rocket_9999");
+	}
+	else
+	{
+		;//let it stay as is
+	}
 	
 }
 
@@ -155,16 +179,50 @@ void rvWeaponRocketLauncher::Spawn ( void ) {
 	SetRocketState ( "Rocket_Idle", 0 );
 
 	//mattMod
-	if (!hasMods)
-	{
+	idPlayer* p = static_cast<idPlayer*>(owner);
+
+	if (!p->rocketModsMade || p->killRPG) {
 		chooseMods();
+		p->killRPG = false;
+		p->rocketModsMade = true;
+		p->rocketNumAttack = numAttack;
+		p->rocketProjectileSpeed = projectileSpeed;
+		p->rocketClipSize = this->clipSize;
+		setClipSize(this->clipSize);
 	}
-	else
+	else 
 	{
-		;
+		modsMade = true;
+		numAttack = p->rocketNumAttack;
+		projectileSpeed = p->rocketProjectileSpeed;
+		setClipSize(p->rocketClipSize);
+
+		if (projectileSpeed == 0) //10, 100, 500, 1000, 9999, default
+		{
+			attackDict.Set("projectile_rocket", " projectile_rocket_s10");
+		}
+		else if (projectileSpeed == 1)
+		{
+			attackDict.Set("projectile_rocket", "projectile_rocket_s100");
+		}
+		else if (projectileSpeed == 2)
+		{
+			attackDict.Set("projectile_rocket", "projectile_rocket_500");
+		}
+		else if (projectileSpeed == 3)
+		{
+			attackDict.Set("projectile_rocket", "projectile_rocket_1000");
+		}
+		else if (projectileSpeed == 4)
+		{
+			attackDict.Set("projectile_rocket", "projectile_rocket_9999");
+		}
+		else
+		{
+			;//let it stay as is
+		}
+
 	}
-	
-	
 }
 
 /*
@@ -248,8 +306,8 @@ rvWeaponRocketLauncher::OnLaunchProjectile
 void rvWeaponRocketLauncher::OnLaunchProjectile ( idProjectile* proj ) {
 
 	//mattMod
-	proj->setSpeedMatt(projectileSpeed);
-	proj->damagePower = proj->damagePower + addedDmg;
+	//proj->setSpeedMatt(projectileSpeed);
+	//proj->damagePower = proj->damagePower + addedDmg;
 	//proj->damagePower = 70;
 
 	rvWeapon::OnLaunchProjectile(proj);
