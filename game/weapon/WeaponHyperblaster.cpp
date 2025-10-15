@@ -20,6 +20,14 @@ public:
 	void					PreSave				( void );
 	void					PostSave			( void );
 
+	//mattMod
+	void				chooseMods();
+	bool modsMade = false;
+	int dmgMod;
+	int clipSize;
+	float newFireRate;
+	
+
 protected:
 
 	jointHandle_t			jointBatteryView;
@@ -40,6 +48,41 @@ private:
 CLASS_DECLARATION( rvWeapon, rvWeaponHyperblaster )
 END_CLASS
 
+void rvWeaponHyperblaster::chooseMods()
+{
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+
+	this->clipSize = temp.RandomInt(90) + 15;
+	setClipSize(this->clipSize);
+
+	dmgMod = temp.RandomInt(5);
+	newFireRate = temp.RandomFloat();
+
+	if (dmgMod == 0) //100, 20, 10 ,1, default
+	{
+		attackDict.Set("def_damage", "damage_hyperblaster_1");
+	}
+	else if (dmgMod == 1)
+	{
+		attackDict.Set("def_damage", "damage_hyperblaster_100");
+	}
+	else if (dmgMod == 2)
+	{
+		attackDict.Set("def_damage", "damage_hyperblaster_10");
+	}
+	else if (dmgMod == 3)
+	{
+		attackDict.Set("def_damage", "damage_hyperblaster_20");
+	}
+	else
+	{
+		;//default
+	}
+}
+
+
+
 /*
 ================
 rvWeaponHyperblaster::rvWeaponHyperblaster
@@ -58,6 +101,47 @@ void rvWeaponHyperblaster::Spawn ( void ) {
 	spinning		 = false;
 	
 	SetState ( "Raise", 0 );	
+	
+	idPlayer* p = static_cast<idPlayer*>(owner);
+
+	if (!p->hyperModsMade || p->killHyper) {
+		chooseMods();
+		p->killHyper = false;
+		p->hyperModsMade = true;
+		p->hyperDmgMod = dmgMod;
+		p->hyperClipSize= this->clipSize;
+		p->hyperFireRate = newFireRate; 
+	}
+	else 
+	{
+		dmgMod = p->hyperDmgMod;
+		this->clipSize = p->hyperClipSize;
+		setClipSize(this->clipSize);
+		newFireRate = p->hyperFireRate;
+
+		if (dmgMod == 0) //100, 20, 10 ,1, default
+		{
+			attackDict.Set("def_damage", "damage_hyperblaster_1");
+		}
+		else if (dmgMod == 1)
+		{
+			attackDict.Set("def_damage", "damage_hyperblaster_100");
+		}
+		else if (dmgMod == 2)
+		{
+			attackDict.Set("def_damage", "damage_hyperblaster_10");
+		}
+		else if (dmgMod == 3)
+		{
+			attackDict.Set("def_damage", "damage_hyperblaster_20");
+		}
+		else
+		{
+			;//default
+		}
+		
+	}
+	
 }
 
 /*
@@ -228,7 +312,11 @@ stateResult_t rvWeaponHyperblaster::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			SpinUp ( );
-			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+			nextAttackTime = gameLocal.time + (newFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+
+			gameLocal.Printf("HyperBlaster fireRarte: %i\n",newFireRate);
+			gameLocal.Printf("HyperBlaster dmg: %s\n", attackDict.GetString("def_damage"));
+
 			Attack ( false, 1, spread, 0, 1.0f );
 			if ( ClipSize() ) {
 				viewModel->SetShaderParm ( HYPERBLASTER_SPARM_BATTERY, (float)AmmoInClip()/ClipSize() );

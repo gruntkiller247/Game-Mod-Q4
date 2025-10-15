@@ -24,6 +24,9 @@ public:
 	void					UpdateEffects	( const idVec3& from, const idDict& dict );
 	void					Save			( idSaveGame* savefile ) const;
 	void					Restore			( idRestoreGame* savefile );
+
+
+
 };
 
 class rvWeaponLightningGun : public rvWeapon {
@@ -46,6 +49,14 @@ public:
 	void					Restore		( idRestoreGame* savefile );
 
 	bool			NoFireWhileSwitching( void ) const { return true; }
+
+	//mattMod
+	void				chooseMods();
+	bool modsMade = false;
+	int dmgEdit;
+	int ammoPerShot; //0-5
+	
+	
 
 protected:
 
@@ -96,6 +107,33 @@ private:
 CLASS_DECLARATION( rvWeapon, rvWeaponLightningGun )
 EVENT( EV_Lightninggun_RestoreHum,			rvWeaponLightningGun::Event_RestoreHum )
 END_CLASS
+
+void rvWeaponLightningGun::chooseMods()
+{
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+
+	ammoPerShot = temp.RandomInt(6);
+	dmgEdit = temp.RandomInt(4);
+
+	if (dmgEdit == 0) //20, 30, 40, default
+	{
+		attackDict.Set("def_damage", "damage_lightninggun_20");
+	}
+	else if (dmgEdit == 1)
+	{
+		attackDict.Set("def_damage", "damage_lightninggun_30");
+	}
+	else if (dmgEdit == 2)
+	{
+		attackDict.Set("def_damage", "damage_lightninggun_40");
+	}
+	else
+	{
+		;//default
+	}
+
+}
 
 /*
 ================
@@ -164,6 +202,41 @@ void rvWeaponLightningGun::Spawn( void ) {
 	chainLightningRange = spawnArgs.GetVec2( "chainLightningRange", "150 300" );
 	
 	SetState ( "Raise", 0 );
+
+	//mattMod
+	idPlayer* p = static_cast<idPlayer*>(owner);
+
+	if (!p->lightModsMade || p->killLight)
+	{
+		chooseMods();
+		p->killLight = false;
+		p->lightModsMade = true;
+		p->lightAmmo = ammoPerShot;
+		p->lightDmg = dmgEdit;
+	}
+	else
+	{
+		ammoPerShot = p->lightAmmo;
+		dmgEdit = p->lightDmg;
+
+		if (dmgEdit == 0) //20, 30, 40, default
+		{
+			attackDict.Set("def_damage", "damage_lightninggun_20");
+		}
+		else if (dmgEdit == 1)
+		{
+			attackDict.Set("def_damage", "damage_lightninggun_30");
+		}
+		else if (dmgEdit == 2)
+		{
+			attackDict.Set("def_damage", "damage_lightninggun_40");
+		}
+		else
+		{
+			;//default
+		}
+
+	}
 }
 
 /*
@@ -311,6 +384,7 @@ void rvWeaponLightningGun::Think ( void ) {
 		float  power = 1.0f;
 		idVec3 dir;
 		
+		//mattMod
 		owner->inventory.UseAmmo( ammoType, ammoRequired );
 		
 		dir = tr.endpos - origin;
@@ -351,6 +425,10 @@ void rvWeaponLightningGun::Attack ( idEntity* ent, const idVec3& dir, float powe
 			effect->Play( gameLocal.time, false );
 		}
 	}	
+
+	//mattMod
+	gameLocal.Printf("Lighting gun dmg: %s\n", attackDict.GetString("def_damage"));
+	gameLocal.Printf("Lighting gun ammoUse: %i\n", ammoPerShot);
 
 // RAVEN BEGIN
 // mekberg: stats

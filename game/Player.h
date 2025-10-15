@@ -275,12 +275,6 @@ public:
 class idPlayer : public idActor {
 public:
 	//mattMod
-	/*struct shotgunMods_t {
-		bool modsMade;
-		int damageMod;
-		int clipSize;
-	};*/
-
 	//mods Values for the Shotgun
 	bool shotgunModsMade = false;
 	int shotgunDamageMod = 1;
@@ -317,6 +311,32 @@ public:
 	int glNumAttack = 1;
 	float glFuse = 1.0;
 	int glClipSize = 1;
+
+	//mod Values for Hyperblaster;
+	bool hyperModsMade = false;
+	bool killHyper = false;;
+	int hyperDmgMod = 1;
+	int hyperClipSize = 1;
+	float hyperFireRate = 1;
+
+	//mod Values for Lightning Gun
+	bool lightModsMade = false;
+	bool killLight = false;
+	int lightDmg = 1;
+	int lightAmmo = 1;
+
+	//mod Values for Machine Gun
+	bool lmgModsMade = false;
+	bool killLMG = false;
+
+	//mod Values for Nailgun
+	bool nailModsMade = false;
+	bool killNail = false;
+
+	//mod Values for Napalm Gun
+	bool napModsMade = false;
+	bool killNap = false;
+
 
  	enum {
  		EVENT_IMPULSE = idEntity::EVENT_MAXEVENTS,
