@@ -88,7 +88,7 @@ void rvWeaponDarkMatterGun::chooseMods()
 	//projectileSpeed = 1;
 	//radiusDMGBonus = 100;
 	spreadNew = temp.RandomInt(5);
-	totalOrbs = temp.RandomInt(5);
+	totalOrbs = temp.RandomInt(5)+1;
 	fireRate = temp.RandomInt(3);
 	//radiusTime = temp.RandomFloat2(20,40);
 
@@ -150,6 +150,8 @@ void rvWeaponDarkMatterGun::Spawn ( void ) {
 		p->	dmgFireRate = fireRate;
 		p->dmgSpread = spreadNew;
 		p->dmgTotalOrbs = totalOrbs;
+
+		totalOrbs = 1;
 	}
 	else
 	{
@@ -157,6 +159,8 @@ void rvWeaponDarkMatterGun::Spawn ( void ) {
 		fireRate = p->dmgFireRate;
 		spreadNew = p->dmgSpread;
 		totalOrbs = p->dmgTotalOrbs;
+
+		totalOrbs = 1;
 
 
 		if (fireRate == 0)

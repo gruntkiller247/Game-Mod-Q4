@@ -29,6 +29,13 @@ public:
 	void					Save( idSaveGame *saveFile ) const;
 	void					Restore( idRestoreGame *saveFile );
 
+	//mattMod
+	void				chooseMods();
+	bool modsMade = false;
+	bool projGravity;
+	int radiusDmg;
+	int dmgEdit;
+
 protected:
 
 	void					UpdateCylinders(void);
@@ -61,6 +68,36 @@ private:
 
 CLASS_DECLARATION( rvWeapon, WeaponNapalmGun )
 END_CLASS
+
+void WeaponNapalmGun::chooseMods()
+{
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+
+	if (temp.RandomInt(100) <= 15)
+	{
+		projGravity = false;
+	}
+	else
+	{
+		projGravity = true;
+	}
+
+	dmgEdit = temp.RandomInt(3);
+	if (dmgEdit == 0)
+	{
+		attackDict.Set("damage_napalmSplash", "damage_napalmSplash_140");
+	}
+	else if (dmgEdit == 1)
+	{
+		attackDict.Set("damage_napalmSplash", "damage_napalmSplash_270");
+	}
+	else
+	{
+		//default
+	}
+}
+
 
 /*
 ================
@@ -105,6 +142,40 @@ void WeaponNapalmGun::Spawn( void ) {
 	cylinderMoveTime  = spawnArgs.GetFloat( "cylinderMoveTime", "500" );
 	cylinderState = CYLINDER_RESET_POSITION;
 	zoomed = false;
+
+
+	//mattMod
+	idPlayer* p = static_cast<idPlayer*>(owner);
+
+	if (!p-> napModsMade || p->killNap) 
+	{
+		chooseMods();
+		p->napModsMade = true;
+		p->killNap = false;
+		p->napGravity = projGravity;
+		//p->napRadiusDmg = radiusDmg;
+		p->napDmg = dmgEdit;
+
+		
+	}
+	else
+	{
+		projGravity = p->napGravity;
+		dmgEdit = p->napDmg;
+
+		if (dmgEdit == 0)
+		{
+			attackDict.Set("damage_napalmSplash", "damage_napalmSplash_140");
+		}
+		else if (dmgEdit == 1)
+		{
+			attackDict.Set("damage_napalmSplash", "damage_napalmSplash_270");
+		}
+		else
+		{
+			//default
+		}
+	}
 }
 
 /*
@@ -393,6 +464,11 @@ stateResult_t WeaponNapalmGun::State_Fire( const stateParms_t& parms ) {
 	};	
 	switch ( parms.stage ) {
 		case STAGE_INIT:
+			//mattMod
+			gameLocal.Printf("Napalm Gravity: %b\n", projGravity);
+			gameLocal.Printf("Napalm radiusDMG: %s\n", attackDict.GetString("def_damage"));
+
+
 			if ( wsfl.zoom ) {
 				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 				Attack ( true, 1, spread, 0, 1.0f );

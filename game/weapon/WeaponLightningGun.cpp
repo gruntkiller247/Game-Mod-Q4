@@ -385,7 +385,7 @@ void rvWeaponLightningGun::Think ( void ) {
 		idVec3 dir;
 		
 		//mattMod
-		owner->inventory.UseAmmo( ammoType, ammoRequired );
+		owner->inventory.UseAmmo(ammoType, ammoPerShot);//ammoRequired );
 		
 		dir = tr.endpos - origin;
 		dir.Normalize ( );

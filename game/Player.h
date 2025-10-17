@@ -328,14 +328,31 @@ public:
 	//mod Values for Machine Gun
 	bool lmgModsMade = false;
 	bool killLMG = false;
+	int lmgDmg = 1;
+	int lmgClipSize = 1;
+	float lmgSpread = 1;
 
 	//mod Values for Nailgun
 	bool nailModsMade = false;
 	bool killNail = false;
+	int nailDMG = 1;
+	int nailClip = 1;
+	float nailFireRate = 1; //spread
+	int nailProjs = 1;
 
 	//mod Values for Napalm Gun
 	bool napModsMade = false;
 	bool killNap = false;
+	bool napGravity = false;
+	int napDmg = 1;
+	//int napRadiusDmg = 1;
+
+	//mod Values for Railgun
+	bool railModsMade = false;
+	bool killRail = false;
+	int railDmg = 1;
+	int railClip = 1;
+	int railNumAttacks = 1;
 
 
  	enum {

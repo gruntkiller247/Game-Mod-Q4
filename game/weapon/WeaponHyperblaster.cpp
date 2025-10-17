@@ -57,7 +57,7 @@ void rvWeaponHyperblaster::chooseMods()
 	setClipSize(this->clipSize);
 
 	dmgMod = temp.RandomInt(5);
-	newFireRate = temp.RandomFloat();
+	//newFireRate = temp.RandomFloat();
 
 	if (dmgMod == 0) //100, 20, 10 ,1, default
 	{
@@ -110,14 +110,14 @@ void rvWeaponHyperblaster::Spawn ( void ) {
 		p->hyperModsMade = true;
 		p->hyperDmgMod = dmgMod;
 		p->hyperClipSize= this->clipSize;
-		p->hyperFireRate = newFireRate; 
+		//p->hyperFireRate = newFireRate; 
 	}
 	else 
 	{
 		dmgMod = p->hyperDmgMod;
 		this->clipSize = p->hyperClipSize;
 		setClipSize(this->clipSize);
-		newFireRate = p->hyperFireRate;
+		//newFireRate = p->hyperFireRate;
 
 		if (dmgMod == 0) //100, 20, 10 ,1, default
 		{
@@ -312,9 +312,9 @@ stateResult_t rvWeaponHyperblaster::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			SpinUp ( );
-			nextAttackTime = gameLocal.time + (newFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 
-			gameLocal.Printf("HyperBlaster fireRarte: %i\n",newFireRate);
+			//gameLocal.Printf("HyperBlaster fireRarte: %i\n",newFireRate);
 			gameLocal.Printf("HyperBlaster dmg: %s\n", attackDict.GetString("def_damage"));
 
 			Attack ( false, 1, spread, 0, 1.0f );

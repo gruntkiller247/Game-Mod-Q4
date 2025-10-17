@@ -40,6 +40,13 @@ public:
 	void				PreSave					( void );
 	void				PostSave				( void );
 
+	void				chooseMods();
+	bool modsMade = false;
+	int dmgMod;
+	int clipSize;
+	float newFireRate; //spread
+	int numAttacks;
+
 protected:
 
 	idEntityPtr<idEntity>				guideEnt;
@@ -88,6 +95,37 @@ private:
 CLASS_DECLARATION( rvWeapon, rvWeaponNailgun )
 END_CLASS
 
+void rvWeaponNailgun::chooseMods()
+{
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+
+	this->clipSize = temp.RandomInt(40) + 30;
+	setClipSize(this->clipSize);
+
+	dmgMod = temp.RandomInt(5);
+	newFireRate = temp.RandomFloat(); //spread
+
+	numAttacks = temp.RandomInt(5)+1;
+
+	if (dmgMod == 0) //1, 10, 50, default
+	{
+		attackDict.Set("def_damage", "entityDef damage_nailDirect_1");
+	}
+	else if (dmgMod == 1)
+	{
+		attackDict.Set("def_damage", "entityDef damage_nailDirect_10");
+	}
+	else if (dmgMod == 2)
+	{
+		attackDict.Set("def_damage", "entityDef damage_nailDirect_50");
+	}
+	else
+	{
+		;//default
+	}
+}
+
 /*
 ================
 rvWeaponNailgun::rvWeaponNailgun
@@ -134,6 +172,46 @@ void rvWeaponNailgun::Spawn ( void ) {
 	
 	ExecuteState ( "ClaspClose" );	
 	SetState ( "Raise", 0 );	
+
+	idPlayer* p = static_cast<idPlayer*>(owner);
+
+	if (!p->nailModsMade || p->killNail)
+	{
+		chooseMods();
+		p->killNail = false;
+		p->nailModsMade= true;
+		p->nailDMG = dmgMod;
+		p->nailClip = clipSize;
+		p->nailFireRate = newFireRate; //spread
+		p->nailProjs =  numAttacks;
+	}
+	else
+	{
+		dmgMod= p->nailDMG;
+		this->clipSize = p->nailClip;
+		setClipSize(this->clipSize);
+		newFireRate = p->nailFireRate;
+		numAttacks = p->nailProjs;
+
+		if (dmgMod == 0) //1, 10, 50, default
+		{
+			attackDict.Set("def_damage", "entityDef damage_nailDirect_1");
+		}
+		else if (dmgMod == 1)
+		{
+			attackDict.Set("def_damage", "entityDef damage_nailDirect_10");
+		}
+		else if (dmgMod == 2)
+		{
+			attackDict.Set("def_damage", "entityDef damage_nailDirect_50");
+		}
+		else
+		{
+			;//default
+		}
+
+
+	}
 }
 
 /*
@@ -666,11 +744,16 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 				PlayCycle ( ANIMCHANNEL_LEGS, "fire_slow", 4 );
 			}
 
+			//mattMod
+			gameLocal.Printf("Nailgun dmg value: %s\n", attackDict.GetString("def_damage"));
+			gameLocal.Printf("Nailgun spread value: %f\n", newFireRate);
+			//gameLocal.Printf();
+
 			if ( wsfl.zoom ) {				
-				Attack ( true, 1, spread, 0.0f, 1.0f );
+				Attack ( true, numAttacks, newFireRate * 40, 0.0f, 1.0f );
 				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 			} else {
-				Attack ( false, 1, spread, 0.0f, 1.0f );
+				Attack ( false, numAttacks, newFireRate * 40, 0.0f, 1.0f );
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 			}
 			

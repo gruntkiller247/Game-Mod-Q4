@@ -18,6 +18,14 @@ public:
 	void					PreSave				( void );
 	void					PostSave			( void );
 
+	//mattMod
+	void				chooseMods();
+	bool modsMade = false;
+	int clipSize;
+	int dmgEdit;
+	float spreadEdit;
+
+
 protected:
 
 	float				spreadZoom;
@@ -39,6 +47,34 @@ private:
 CLASS_DECLARATION( rvWeapon, rvWeaponMachinegun )
 END_CLASS
 
+void rvWeaponMachinegun::chooseMods()
+{
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+
+	this->clipSize = temp.RandomInt(80) + 30;
+	dmgEdit = temp.RandomInt(4);
+	spreadEdit = temp.RandomFloat();
+	setClipSize(this->clipSize);
+
+	if (dmgEdit == 0)
+	{
+		attackDict.Set("def_damage", "damage_machinegun_3");
+	}
+	else if (dmgEdit == 1)
+	{
+		attackDict.Set("def_damage", "damage_machinegun_30");
+	}
+	else if (dmgEdit == 2)
+	{
+		attackDict.Set("def_damage", "damage_machinegun_10");
+	}
+	else
+	{
+		//default
+	}
+}
+
 /*
 ================
 rvWeaponMachinegun::rvWeaponMachinegun
@@ -59,6 +95,47 @@ void rvWeaponMachinegun::Spawn ( void ) {
 	SetState ( "Raise", 0 );	
 	
 	Flashlight ( owner->IsFlashlightOn() );
+
+	//mattMod
+	idPlayer* p = static_cast<idPlayer*>(owner);
+
+	if (!p-> lmgModsMade || p->killLMG)
+	{
+		chooseMods();
+		p->killLMG = false;
+		p->lmgModsMade = true;
+		p->lmgDmg = dmgEdit;
+		p->lmgSpread = spreadEdit;
+		p->lmgClipSize = this->clipSize;
+
+	}
+	else
+	{
+		modsMade = true;
+		dmgEdit = p->lmgDmg;
+		spreadEdit = p->lmgSpread;
+		this->clipSize = p->lmgClipSize;
+		setClipSize(this->clipSize);
+
+		if (dmgEdit == 0)
+		{
+			attackDict.Set("def_damage", "damage_machinegun_3");
+		}
+		else if (dmgEdit == 1)
+		{
+			attackDict.Set("def_damage", "damage_machinegun_30");
+		}
+		else if (dmgEdit == 2)
+		{
+			attackDict.Set("def_damage", "damage_machinegun_10");
+		}
+		else
+		{
+			;
+		}
+
+
+	}
 }
 
 /*
@@ -227,12 +304,17 @@ stateResult_t rvWeaponMachinegun::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			if ( wsfl.zoom ) {
+				gameLocal.Printf("LMG zoom values not changed\n");
 				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 				Attack ( true, 1, spreadZoom, 0, 1.0f );
 				fireHeld = true;
 			} else {
+
+				gameLocal.Printf("LMG dmg value: %s\n", attackDict.GetString("def_damage"));
+				gameLocal.Printf("LMG mag size: %i\n", clipSize);
+
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-				Attack ( false, 1, spread, 0, 1.0f );
+				Attack ( false, 1, spread*spreadEdit, 0, 1.0f );
 			}
 			PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
 			return SRESULT_STAGE ( STAGE_WAIT );

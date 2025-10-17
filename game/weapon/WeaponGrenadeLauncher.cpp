@@ -49,7 +49,7 @@ void rvWeaponGrenadeLauncher::chooseMods()
 	this->clipSize = temp.RandomInt(20) + 7;
 	setClipSize(clipSize);
 
-	numProjectiles = temp.RandomInt(5);
+	numProjectiles = temp.RandomInt(5)+1;
 	spreadNew = temp.RandomInt(5); //for clarity
 	newFuse = temp.RandomInt(5);
 

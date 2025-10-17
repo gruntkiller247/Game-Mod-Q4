@@ -83,7 +83,7 @@ void rvWeaponRocketLauncher::chooseMods()
 	setClipSize(clipSize);
 
 
-	numAttack = temp.RandomInt(4)+2;
+	numAttack = temp.RandomInt(4)+1;
 
 	//reloadRate = temp.RandomFloat(); This shit crashes 100% of the time
 	projectileSpeed = temp.RandomInt(6);
@@ -550,7 +550,7 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));	
 
 			//mattMod
-			//	int projectileSpeed;
+			//int projectileSpeed;
 			//int numAttack;
 			//int clipSize;
 			gameLocal.Printf("RPG projectile speed: %s\n", attackDict.GetString("speed"));
