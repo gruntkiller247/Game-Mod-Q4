@@ -31,6 +31,7 @@ public:
 	int projectileSpeed;
 	int numAttack;
 	int clipSize;
+	void setModsMade(bool);
 
 
 #ifdef _XENON
@@ -74,6 +75,12 @@ private:
 CLASS_DECLARATION( rvWeapon, rvWeaponRocketLauncher )
 END_CLASS
 
+//mattMod
+void rvWeaponRocketLauncher::setModsMade(bool in)
+{
+	modsMade = in;
+}
+
 void rvWeaponRocketLauncher::chooseMods()
 {
 	idRandom temp;
@@ -112,6 +119,8 @@ void rvWeaponRocketLauncher::chooseMods()
 	{
 		;//let it stay as is
 	}
+
+	modsMade = true;
 	
 }
 
@@ -183,8 +192,10 @@ void rvWeaponRocketLauncher::Spawn ( void ) {
 	//mattMod
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p->rocketModsMade || p->killRPG) {
+	if (!p->rocketModsMade || !modsMade) {
 		chooseMods();
+		modsMade = true;
+
 		p->killRPG = false;
 		p->rocketModsMade = true;
 		p->rocketNumAttack = numAttack;

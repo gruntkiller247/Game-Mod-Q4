@@ -21,6 +21,7 @@ public:
 	int spreadNew;
 	float newFuse;
 	int clipSize;
+	void setModsMade(bool);
 
 #ifdef _XENON
 	virtual bool		AllowAutoAim			( void ) const { return false; }
@@ -40,6 +41,11 @@ private:
 
 CLASS_DECLARATION( rvWeapon, rvWeaponGrenadeLauncher )
 END_CLASS
+
+void rvWeaponGrenadeLauncher::setModsMade(bool in)
+{
+	hasMods = in;
+}
 
 void rvWeaponGrenadeLauncher::chooseMods()
 {
@@ -96,8 +102,9 @@ void rvWeaponGrenadeLauncher::Spawn ( void ) {
 
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p->glModsMade || p->killGL) {
+	if (!p->glModsMade || !hasMods) {
 		chooseMods();
+
 		p->killGL = false;
 		p->glModsMade = true;
 		p->glNumAttack = numProjectiles;

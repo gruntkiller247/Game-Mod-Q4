@@ -129,6 +129,8 @@ public:
 	};
 
 	void				Init(idPlayer* _owner, const idDeclEntityDef* def, int weaponIndex, bool isStrogg = false);
+	
+
 
 	// Virtual overrides
 	void				Spawn(void);
@@ -239,7 +241,11 @@ public:
 	void				EnterCinematic(void);
 	void				ExitCinematic(void);
 
+	//mattMod
+	//virtual void setModsMade(bool);
+
 protected:
+
 
 	virtual void		OnLaunchProjectile(idProjectile* proj);
 
@@ -409,7 +415,9 @@ public:
 	
 
 protected:
-	
+
+
+
 	int								clipSize;			// 0 means no reload
 	idEntityPtr<rvViewWeapon>		viewModel;
 	idAnimator* viewAnimator;

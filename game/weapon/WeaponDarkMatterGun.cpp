@@ -27,6 +27,7 @@ public:
 	int fireRate;
 	float spreadNew; //This works
 	int totalOrbs;	//This works
+	void setModsMade(bool);
 
 	
 
@@ -74,6 +75,12 @@ private:
 CLASS_DECLARATION( rvWeapon, rvWeaponDarkMatterGun )
 END_CLASS
 
+//mattMod
+void rvWeaponDarkMatterGun::setModsMade(bool in)
+{
+	modsMade = in;
+}
+
 void rvWeaponDarkMatterGun::chooseMods()
 {
 	//The fuck do I do to this weapon?
@@ -108,7 +115,7 @@ void rvWeaponDarkMatterGun::chooseMods()
 	{
 		//the default value
 	}
-
+	modsMade = true;
 }
 
 /*
@@ -143,7 +150,7 @@ void rvWeaponDarkMatterGun::Spawn ( void ) {
 
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p->dmgModsMade || p->killDMG)
+	if (!p->dmgModsMade || !modsMade)
 	{
 		p->killDMG = false;
 		p->dmgModsMade = true;

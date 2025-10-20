@@ -275,6 +275,14 @@ public:
 class idPlayer : public idActor {
 public:
 	//mattMod
+	void					DropWeaponMatt(void);
+	
+	//point value for store
+	int points = 0;
+	void addPoints(int);
+	void updatePointsGUI(void);
+
+
 	//mods Values for the Shotgun
 	bool shotgunModsMade = false;
 	int shotgunDamageMod = 1;

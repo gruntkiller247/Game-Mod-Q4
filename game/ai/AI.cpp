@@ -1678,6 +1678,20 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	RemoveProjectile();
 	StopMove( MOVE_STATUS_DONE );
 
+	//mattMod
+	/*idPlayer* player = gameLocal.GetLocalPlayer();
+
+
+	if (!player)
+	{
+		//player->points += 10;
+		player->addPoints(10);
+		gameLocal.Printf("Player points are: %s\n", player->points);
+	}
+	else
+		gameLocal.Printf("onDeath adding points: Player not found\n");*/
+
+
 	OnDeath();
 	CheckDeathObjectives();
 
@@ -1755,8 +1769,8 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 		}
 		kv = spawnArgs.MatchPrefix( "def_drops", kv );
 
-		gameLocal.Printf("Killed the AI actor. Hopping to spawn a weapon!");
-		spawnWeapon();
+		//gameLocal.Printf("Killed the AI actor. Hopping to spawn a weapon!");
+		//spawnWeapon();
 	}
 }
 
@@ -3691,8 +3705,26 @@ void idAI::OnDeath( void ){
 
 	//mattMod
 	//This seems to be the right area to call for spawning a weapon!
-	gameLocal.Printf("Calling spawnWeapon in onDeath(): ");
+	//gameLocal.Printf("Calling spawnWeapon in onDeath(): ");
 	spawnWeapon();
+
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+
+	if (!player)
+	{
+		gameLocal.Printf("Did not find the Player!\n");
+	}
+	else
+	{
+		gameLocal.Printf("Found the Player!\n");
+		player->points += 10;
+		gameLocal.Printf("Player points: %i\n", player->points);
+	}
+	
+
+	
+
 
 /* DONT DROP ANYTHING FOR NOW
 	float rVal = gameLocal.random.RandomInt( 100 );
@@ -5180,68 +5212,67 @@ enum
 
 void idAI::spawnWeapon()
 {
-	rvWeapon test;
 	idRandom temp;
 	temp.SetSeed(gameLocal.time);
 	int num = temp.RandomInt(11);
 
-	//idVec3 origin = GetPhysics()->GetOrigin();
 	const idVec3& org = physicsObj.GetOrigin();
 	idAngles angles = physicsObj.GetAxis().ToAngles();
 
-	const char* name;
-	num = shotgun;
+	const char* name="";
+	//num = blaster;
 
-	switch (num) {
+	switch (num) 
+	{
 	case blaster:
 		gameLocal.Printf("Spawned: blaster\n");
 		name = "weapon_blaster";
-		//test = spawnArgs;
 		break;
 
 	case dmg:
 		gameLocal.Printf("Spawned: dmg\n");
-		name = "weapon_dmg";
+		//name = "weapon_dmg";
+		name = "moveable_item_dmg";
 		break;
 
 	case grenade:
 		gameLocal.Printf("Spawned: grenade\n");
-		name = "weapon_grenadelauncher";
+		name = "moveable_item_grenadelauncher";
 		break;
 
 	case hype:
 		gameLocal.Printf("Spawned: hype\n");
-		name = "weapon_hyperblaster";
+		name = "moveable_item_hyperblaster";
 		break;
 
 	case light:
 		gameLocal.Printf("Spawned: light\n");
-		name = "weapon_lightninggun";
+		name = "moveable_item_lightning_gun";
 		break;
 
 	case machine:
 		gameLocal.Printf("Spawned: machine\n");
-		name = "weapon_machinegun";
+		name = "moveable_item_machinegun ";
 		break;
 
 	case nail:
 		gameLocal.Printf("Spawned: nail\n");
-		name = "weapon_nailgun";
+		name = "moveable_item_nailgun";
 		break;
 
 	case napalm:
 		gameLocal.Printf("Spawned: napalm\n");
-		name = "weapon_napalmgun";
+		name = "moveable_item_napalmgun";
 		break;
 
 	case rail:
 		gameLocal.Printf("Spawned: rail\n");
-		name = "weapon_railgun";
+		name = "moveable_item_railgun";
 		break;
 
 	case rocket:
 		gameLocal.Printf("Spawned: rocket\n");
-		name = "weapon_rocketlauncher";
+		name = "moveable_item_rocketlauncher";
 		break;
 
 	case shotgun:
@@ -5251,7 +5282,7 @@ void idAI::spawnWeapon()
 		break;
 
 	default:
-		gameLocal.Printf("Weapon number is out of bounds!: %d", num);
+		gameLocal.Printf("Weapon number is out of bounds!: %d\n", num);
 		break;
 	}
 	
@@ -5263,15 +5294,18 @@ void idAI::spawnWeapon()
 	idEntity* weapon = NULL;
 	gameLocal.SpawnEntityDef(args, &weapon);
 
-	if (weapon) {
+	if (weapon) 
+	{
 		weapon->SetOrigin(org);
 		weapon->SetAngles(angles);
-		gameLocal.Printf("Spawned a weapon on kill!");
+		gameLocal.Printf("Spawned a weapon on kill!\n");
 	}
 	else
 	{
-		gameLocal.Printf("Could not spawn weapon on kill!");
+		gameLocal.Printf("Could not spawn weapon on kill!\n");
 	}
 	
+
+
 
 }

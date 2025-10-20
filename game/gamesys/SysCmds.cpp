@@ -31,6 +31,34 @@
 #include "NoGameTypeInfo.h"
 #endif
 
+//mattMod
+void Cmd_dropWeapon_f(const idCmdArgs& args)
+{
+	idPlayer *p;
+	p = gameLocal.GetLocalPlayer();
+	char *msg;
+
+	if (gameLocal.isMultiplayer || !gameLocal.CheatsOk())
+	{
+		return;
+	}
+
+	if (!p)
+	{
+		msg=("Did not find player!\n");
+	}
+	else
+	{
+		msg=("Found the player!\nDropping the weapon!\n");
+		//p->SetWeaponMatt(-1);
+		p->DropWeaponMatt();
+
+	}
+
+	gameLocal.Printf("%s", msg);
+}
+
+
 /*
 ==================
 Cmd_GetFloatArg
@@ -3053,6 +3081,11 @@ void idGameLocal::InitConsoleCommands( void ) {
 //	cmdSystem->AddCommand( "writeGameState",		WriteGameState_f,			CMD_FL_GAME,				"write game state" );
 //	cmdSystem->AddCommand( "testSaveGame",			TestSaveGame_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"test a save game for a level" );
 // RAVEN END
+	
+	//mattMod
+	cmdSystem->AddCommand("drop", Cmd_dropWeapon_f,CMD_FL_GAME|CMD_FL_CHEAT, "Drops the player's current weapon from the inventory!");
+	//cmdSystem->AddCommand( "god",					Cmd_God_f,					CMD_FL_GAME|CMD_FL_CHEAT,	"enables god mode" );
+
 	cmdSystem->AddCommand( "game_memory",			idClass::DisplayInfo_f,		CMD_FL_GAME,				"displays game class info" );
 	cmdSystem->AddCommand( "listClasses",			idClass::ListClasses_f,		CMD_FL_GAME,				"lists game classes" );
 	cmdSystem->AddCommand( "listThreads",			idThread::ListThreads_f,	CMD_FL_GAME|CMD_FL_CHEAT,	"lists script threads" );

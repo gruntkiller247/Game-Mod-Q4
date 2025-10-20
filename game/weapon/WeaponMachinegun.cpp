@@ -24,6 +24,7 @@ public:
 	int clipSize;
 	int dmgEdit;
 	float spreadEdit;
+	void setModsMade(bool);
 
 
 protected:
@@ -46,6 +47,13 @@ private:
 
 CLASS_DECLARATION( rvWeapon, rvWeaponMachinegun )
 END_CLASS
+
+//mattMod
+
+void rvWeaponMachinegun::setModsMade(bool in) 
+{
+	modsMade = in;
+}
 
 void rvWeaponMachinegun::chooseMods()
 {
@@ -73,6 +81,7 @@ void rvWeaponMachinegun::chooseMods()
 	{
 		//default
 	}
+	modsMade = true;
 }
 
 /*
@@ -99,10 +108,10 @@ void rvWeaponMachinegun::Spawn ( void ) {
 	//mattMod
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p-> lmgModsMade || p->killLMG)
+	if (!p-> lmgModsMade || !modsMade)
 	{
 		chooseMods();
-		p->killLMG = false;
+		//p->killLMG = false;
 		p->lmgModsMade = true;
 		p->lmgDmg = dmgEdit;
 		p->lmgSpread = spreadEdit;

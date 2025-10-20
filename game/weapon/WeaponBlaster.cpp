@@ -25,6 +25,7 @@ public:
 	bool modsMade = false;
 	int numAttacks;
 	int checkCharge;
+	void setModsMade(bool);
 
 protected:
 
@@ -55,6 +56,12 @@ CLASS_DECLARATION(rvWeapon, rvWeaponBlaster)
 END_CLASS
 
 //mattMod
+
+void rvWeaponBlaster::setModsMade(bool in)
+{
+	modsMade = in;
+}
+
 void rvWeaponBlaster::chooseMods()
 {
 	if (!modsMade)
@@ -216,10 +223,10 @@ void rvWeaponBlaster::Spawn(void) {
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
 
-	if (!p->blasterModsMade || p->killBlaster)
+	if (!p->blasterModsMade || !modsMade)
 	{
 		chooseMods();
-		p->killBlaster = false;
+		//p->killBlaster = false;
 		p->blasterModsMade = true;
 		p->blasterNumAttack = numAttacks;
 		p->blasterSpreadEdit = spreadEdit;

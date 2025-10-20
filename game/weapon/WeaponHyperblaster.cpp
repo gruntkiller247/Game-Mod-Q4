@@ -26,6 +26,7 @@ public:
 	int dmgMod;
 	int clipSize;
 	float newFireRate;
+	void setModsMade(bool);
 	
 
 protected:
@@ -47,6 +48,12 @@ private:
 
 CLASS_DECLARATION( rvWeapon, rvWeaponHyperblaster )
 END_CLASS
+
+//mattMod
+void rvWeaponHyperblaster::setModsMade(bool in)
+{
+	modsMade = in;
+}
 
 void rvWeaponHyperblaster::chooseMods()
 {
@@ -79,6 +86,7 @@ void rvWeaponHyperblaster::chooseMods()
 	{
 		;//default
 	}
+	modsMade = true;
 }
 
 
@@ -104,8 +112,10 @@ void rvWeaponHyperblaster::Spawn ( void ) {
 	
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p->hyperModsMade || p->killHyper) {
+	if (!p->hyperModsMade || !modsMade) {
 		chooseMods();
+		modsMade = true;
+
 		p->killHyper = false;
 		p->hyperModsMade = true;
 		p->hyperDmgMod = dmgMod;

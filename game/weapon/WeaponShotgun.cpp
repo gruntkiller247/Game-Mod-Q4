@@ -31,6 +31,7 @@ public:
 	int damageMod;
 	int clipSize;
 	int newHitscans;
+	void setModsMade(bool);
 
 protected:
 	int						hitscans;
@@ -48,6 +49,11 @@ CLASS_DECLARATION( rvWeapon, rvWeaponShotgun )
 END_CLASS
 
 //mattMod
+void rvWeaponShotgun::setModsMade(bool in)
+{
+	modsMade = in;
+}
+
 void rvWeaponShotgun::chooseMods()
 {
 	if (!modsMade)
@@ -126,8 +132,10 @@ void rvWeaponShotgun::Spawn( void ) {
 	//mattMod
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p->shotgunModsMade || p->killShotgun) {
+	if (!p->shotgunModsMade || !modsMade) {
 		chooseMods(); 
+		modsMade = true;
+
 		p->killShotgun = false;
 		p->shotgunModsMade = true;
 		p->shotgunDamageMod = damageMod;

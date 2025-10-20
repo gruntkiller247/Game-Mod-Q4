@@ -35,6 +35,7 @@ public:
 	bool projGravity;
 	int radiusDmg;
 	int dmgEdit;
+	void setModsMade(bool);
 
 protected:
 
@@ -69,6 +70,12 @@ private:
 CLASS_DECLARATION( rvWeapon, WeaponNapalmGun )
 END_CLASS
 
+//mattMod
+void WeaponNapalmGun::setModsMade(bool in)
+{
+	modsMade = in;
+}
+
 void WeaponNapalmGun::chooseMods()
 {
 	idRandom temp;
@@ -96,6 +103,7 @@ void WeaponNapalmGun::chooseMods()
 	{
 		//default
 	}
+	modsMade = true;
 }
 
 
@@ -147,9 +155,11 @@ void WeaponNapalmGun::Spawn( void ) {
 	//mattMod
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p-> napModsMade || p->killNap) 
+	if (!p-> napModsMade || !modsMade) 
 	{
 		chooseMods();
+		modsMade = true;
+
 		p->napModsMade = true;
 		p->killNap = false;
 		p->napGravity = projGravity;

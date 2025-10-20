@@ -46,6 +46,7 @@ public:
 	int clipSize;
 	float newFireRate; //spread
 	int numAttacks;
+	void setModsMade(bool);
 
 protected:
 
@@ -95,6 +96,12 @@ private:
 CLASS_DECLARATION( rvWeapon, rvWeaponNailgun )
 END_CLASS
 
+//mattMod
+void rvWeaponNailgun::setModsMade(bool in)
+{
+	modsMade = in;
+}
+
 void rvWeaponNailgun::chooseMods()
 {
 	idRandom temp;
@@ -124,6 +131,7 @@ void rvWeaponNailgun::chooseMods()
 	{
 		;//default
 	}
+	modsMade = true;
 }
 
 /*
@@ -175,9 +183,11 @@ void rvWeaponNailgun::Spawn ( void ) {
 
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p->nailModsMade || p->killNail)
+	if (!p->nailModsMade || !modsMade)
 	{
 		chooseMods();
+		modsMade = true;
+
 		p->killNail = false;
 		p->nailModsMade= true;
 		p->nailDMG = dmgMod;

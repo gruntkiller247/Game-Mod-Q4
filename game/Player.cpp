@@ -993,6 +993,7 @@ bool idInventory::Give( idPlayer *owner, const idDict &spawnArgs, const char *st
 idInventoy::Drop
 ===============
 */
+//mattMod Drop weapon script?
 void idInventory::Drop( const idDict &spawnArgs, const char *weapon_classname, int weapon_index ) {
 	// remove the weapon bit
 	// also remove the ammo associated with the weapon as we pushed it in the item
@@ -1362,6 +1363,63 @@ bool idPlayer::GetShowHud( void )	{
 	return !disableHud;
 }
 
+//mattMod
+/*
+void idPlayer::SetWeaponMatt(int weaponIndex)
+{
+	if (weapon && weaponIndex == currentWeapon) {
+		return;
+	}
+	
+	//weapon->setModsMade(false);
+	
+	
+
+	// Clear the weapon entity
+	delete weapon;
+	weapon = NULL;
+
+	//previousWeapon = currentWeapon;
+	//currentWeapon = weaponIndex;
+	//weaponGone = false;
+
+	if (weaponIndex < 0) {
+		weaponGone = true;
+		return;
+	}
+
+	/*animPrefix = spawnArgs.GetString(va("def_weapon%d", currentWeapon));
+
+	idTypeInfo* typeInfo;
+	weaponDef = GetWeaponDef(currentWeapon);
+	if (!weaponDef) {
+		gameLocal.Error("Weapon definition not found for weapon %d", currentWeapon);
+	}
+	typeInfo = idClass::GetClass(weaponDef->dict.GetString("weaponclass", "rvWeapon"));
+	if (!typeInfo || !typeInfo->IsType(rvWeapon::GetClassType())) {
+		gameLocal.Error("Invalid weapon class '%s' specified for weapon '%s'", animPrefix.c_str(), weaponDef->dict.GetString("weaponclass", "rvWeapon"));
+	}
+	weapon = static_cast<rvWeapon*>(typeInfo->CreateInstance());
+	weapon->Init(this, weaponDef, currentWeapon, isStrogg);
+	weapon->CallSpawn();
+
+	// Reset the zoom fov on weapon change
+	if (zoomed) {
+		zoomFov.Init(gameLocal.time, 100, CalcFov(true), DefaultFov());
+		zoomed = false;
+	}
+
+	UpdateHudWeapon();
+
+	// Remove the "weapon_" from the anim prefect for the player world anims
+	//animPrefix.Strip("weapon_");
+
+	// Make sure weapon is hidden
+	if (!weaponEnabled) {
+		Event_DisableWeapon();
+	}
+}*/
+
 /*
 ==============
 idPlayer::SetWeapon
@@ -1371,7 +1429,7 @@ void idPlayer::SetWeapon( int weaponIndex ) {
 	if ( weapon && weaponIndex == currentWeapon ) {
 		return;
 	}
-	
+
 	// Clear the weapon entity
 	delete weapon;
 	weapon = NULL;
@@ -3387,10 +3445,31 @@ void idPlayer::UpdateHudAmmo( idUserInterface *_hud ) {
 idPlayer::UpdateHudStats
 ===============
 */
+//mattmod
+//update GUI here
 void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	int temp;
 	
 	assert ( _hud );
+
+	//mattMod
+	//temp = _hud->State().GetInt("playerPointsValue",0);
+	//_hud->GetStateInt("playerPointsValue",points+"");
+	//gameLocal.Printf("Updated GUI Player Points: $i\n",temp);
+
+	const char * temp2 = _hud->State().GetString("playerPointsValue", "-1");
+
+	if (!temp2)
+	{
+		gameLocal.Printf("DID NOT Find playerPointsValue variable!\n");
+	}
+	else
+	{
+		//gameLocal.Printf("Found playerPointsValue variable!\n");
+		
+		_hud->SetStateString("playerPointsValue", va("%d", points));
+	}
+	
 
 	temp = _hud->State().GetInt ( "player_health", "-1" );
 	if ( temp != health ) {		
@@ -3407,6 +3486,8 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 		_hud->SetStateFloat	( "player_armorpct", idMath::ClampFloat ( 0.0f, 1.0f, (float)inventory.armor / (float)inventory.maxarmor ) );
 		_hud->HandleNamedEvent ( "updateArmor" );
 	}
+
+
 	
 	// Boss bar
 	if ( _hud->State().GetInt ( "boss_health", "-1" ) != (bossEnemy ? bossEnemy->health : -1) ) {
@@ -3616,6 +3697,7 @@ void idPlayer::DrawShadow( renderEntity_t *headRenderEnt ) {
 idPlayer::DrawHUD
 ===============
 */
+//mattMod drawHud Where hud made
 void idPlayer::DrawHUD( idUserInterface *_hud ) {
 	idUserInterface * cursor = idPlayer::cursor;
  
@@ -5932,6 +6014,86 @@ void idPlayer::RespawnFlags ( void ) {
 		}	
 	}	
 }
+
+//mattMod
+void idPlayer::DropWeaponMatt(void) {
+	idEntity* item;
+	idDict		args;
+	const char* itemClass;
+
+	assert(gameLocal.isClient);
+
+	if ( weaponGone || !weapon) {
+		return;
+	}
+
+	// Make sure the weapon is droppable	
+	itemClass = weapon->spawnArgs.GetString("def_dropItem");
+	if (!itemClass || !*itemClass) {
+		return;
+	}
+
+	// If still alive then the weapon is being thrown so start it a bit in front of the player
+
+	// copy over the instance
+	args.SetInt("instance", GetInstance());
+
+	if (health > 0) {
+		idVec3 forward;
+		idVec3 up;
+		viewAngles.ToVectors(&forward, NULL, &up);
+		args.SetBool("triggerFirst", true);
+		item = DropItem(itemClass, args, 250.0f * forward + 150.0f * up);
+	}
+	else {
+		item = DropItem(itemClass, args);
+	}
+
+	// Drop the weapon
+	if (!item) {
+		gameLocal.Warning("Player %d failed to drop weapon '%s'", entityNumber, weapon->spawnArgs.GetString("def_dropItem"));
+		return;
+	}
+
+	// Since this weapon was dropped, replace any starting ammo values with real ammo values
+	const idKeyValue* keyval = item->spawnArgs.MatchPrefix("inv_start_ammo_");
+	idDict newArgs;
+	while (keyval) {
+		newArgs.Set(va("inv_ammo_%s", keyval->GetKey().Right(keyval->GetKey().Length() - 15).c_str()), keyval->GetValue().c_str());
+		item->spawnArgs.Set(keyval->GetKey(), "");
+		keyval = item->spawnArgs.MatchPrefix("inv_start_ammo_", keyval);
+	}
+
+	item->spawnArgs.SetDefaults(&newArgs);
+
+	// Set the appropriate mods on the dropped item
+	int		i;
+	int		mods;
+	idStr	out;
+	mods = weapon->GetMods();
+	for (i = 0; i < MAX_WEAPONMODS; i++) {
+		if (mods & (1 << i)) {
+			if (out.Length()) {
+				out += ",";
+			}
+			out += weapon->spawnArgs.GetString(va("def_mod%d", i + 1));
+		}
+	}
+	if (out.Length()) {
+		item->spawnArgs.Set("inv_weaponmod", out);
+	}
+
+	// Make sure the weapon removes itself over time.
+	//item->PostEventMS(&EV_Remove, WEAPON_DROP_TIME);
+
+	// Delay aquire since the weapon is being thrown
+	if (health > 0) {
+		item->PostEventMS(&EV_Activate, 500, item);
+		inventory.Drop(spawnArgs, item->spawnArgs.GetString("inv_weapon"), -1);
+		NextWeapon();
+	}
+}
+
 
 /*
 =================
@@ -14080,7 +14242,7 @@ int idPlayer::CanSelectWeapon(const char* weaponName)
 
 // RITUAL END
 
-//mattMod
+
 /*
 void idPlayer::saveShotgun(rvWeaponShotgun* test)
 {
@@ -14098,3 +14260,15 @@ rvWeaponShotgun* idPlayer::restoreShotgun()
 	return NULL;
 	
 }*/
+
+//mattMod
+void idPlayer::addPoints(int toAdd)
+{
+	points += toAdd;
+}
+
+void idPlayer::updatePointsGUI()
+{
+	//uiManager->FindGui("", true, false, true);
+
+}

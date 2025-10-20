@@ -3407,3 +3407,9 @@ void rvWeapon::setAmmoClip(int newSize)
 	ammoClip = newSize;
 }
 
+/*void rvWeapon::setModsMade(bool in)
+{
+	//let the children edit this
+	gameLocal.Printf("setModsMade method run in parent: Bad!\n");
+}*/
+

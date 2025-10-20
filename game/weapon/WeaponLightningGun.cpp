@@ -132,7 +132,7 @@ void rvWeaponLightningGun::chooseMods()
 	{
 		;//default
 	}
-
+	modsMade = true;
 }
 
 /*
@@ -206,9 +206,10 @@ void rvWeaponLightningGun::Spawn( void ) {
 	//mattMod
 	idPlayer* p = static_cast<idPlayer*>(owner);
 
-	if (!p->lightModsMade || p->killLight)
+	if (!p->lightModsMade || !modsMade)
 	{
 		chooseMods();
+		modsMade = true;
 		p->killLight = false;
 		p->lightModsMade = true;
 		p->lightAmmo = ammoPerShot;

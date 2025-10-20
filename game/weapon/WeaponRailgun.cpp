@@ -22,10 +22,11 @@ public:
 	void					ClientUnstale		( void );
 
 	//mattMod
-	/*void				chooseMods();
+	void				chooseMods();
 	bool modsMade = false;
 	int dmgMod;
-	int numAttacks;*/
+	int numAttacks;
+	int clipSize;
 
 protected:
 	jointHandle_t			jointBatteryView;
@@ -45,19 +46,19 @@ CLASS_DECLARATION( rvWeapon, rvWeaponRailgun )
 	EVENT( EV_Railgun_RestoreHum,			rvWeaponRailgun::Event_RestoreHum )
 END_CLASS
 
-/*void rvWeaponRailgun::chooseMods()
+void rvWeaponRailgun::chooseMods()
 {
 	idRandom temp;
 	temp.SetSeed(gameLocal.time);
 
-	dmgMod = temp.RandomInt(4);
-	//this->clipSize = temp.RandomInt(5) + 2;
-	//setClipSize(this->clipSize);
+	//dmgMod = temp.RandomInt(4);
+	this->clipSize = 10;//temp.RandomInt(5) + 10;
+	setClipSize(this->clipSize);
 
 	//setClipSize(3);
 
 	//numAttacks = temp.RandomInt(2) + 1;
-	numAttacks = 1;
+	//numAttacks = 1;
 
 	/*if (dmgMod == 0) //10, 250, 500
 	{
@@ -74,8 +75,8 @@ END_CLASS
 	else
 	{
 		//default
-	}
-}*/
+	}*/
+}
 
 /*
 ================
@@ -265,9 +266,10 @@ stateResult_t rvWeaponRailgun::State_Fire ( const stateParms_t& parms ) {
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 
 			//mattMod
-			//gameLocal.Printf("Railgun dmg: %s\n", attackDict.GetString("def_damage"));
+			gameLocal.Printf("Railgun dmg: %s\n", attackDict.GetString("def_damage"));
 			//gameLocal.Printf("Railgun num attacks: %i\n",numAttacks);
-			//gameLocal.Printf("Railgun mag size: %i\n",this->clipSize);
+			gameLocal.Printf("Railgun mag size: %i\n",this->clipSize);
+			//this->clipSize = 10;
 
 			Attack ( false, 1, spread, 0, 1.0f );
 			PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
