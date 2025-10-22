@@ -276,6 +276,7 @@ class idPlayer : public idActor {
 public:
 	//mattMod
 	void					DropWeaponMatt(void);
+	void	spawnWeapon();
 	
 	//point value for store
 	int points = 0;

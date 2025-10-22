@@ -14272,3 +14272,116 @@ void idPlayer::updatePointsGUI()
 	//uiManager->FindGui("", true, false, true);
 
 }
+
+enum
+{
+	blaster,	//0
+	dmg,		//1
+	grenade,	//2
+	hype,		//3
+	light,		//4
+	machine,	//5
+	nail,		//6
+	napalm,		//7
+	rail,		//8
+	rocket,		//9
+	shotgun		//10
+
+};
+
+void idPlayer::spawnWeapon()
+{
+	idRandom temp;
+	temp.SetSeed(gameLocal.time);
+	int num = temp.RandomInt(11);
+
+	const idVec3& org = physicsObj.GetOrigin();
+	idAngles angles = physicsObj.GetAxis().ToAngles();
+
+	const char* name = "";
+	//num = blaster;
+
+	switch (num)
+	{
+	case blaster:
+		//gameLocal.Printf("Spawned: blaster\n");
+		//Blaster can't be dropped so no reason to let it spawn
+		name = "moveable_item_shotgun";
+		break;
+
+	case dmg:
+		//gameLocal.Printf("Spawned: dmg\n");
+		//name = "weapon_dmg";
+		name = "moveable_item_dmg";
+		break;
+
+	case grenade:
+		//gameLocal.Printf("Spawned: grenade\n");
+		name = "moveable_item_grenadelauncher";
+		break;
+
+	case hype:
+		//gameLocal.Printf("Spawned: hype\n");
+		name = "moveable_item_hyperblaster";
+		break;
+
+	case light:
+		//gameLocal.Printf("Spawned: light\n");
+		name = "moveable_item_lightning_gun";
+		break;
+
+	case machine:
+		//gameLocal.Printf("Spawned: machine\n");
+		name = "moveable_item_machinegun ";
+		break;
+
+	case nail:
+		//gameLocal.Printf("Spawned: nail\n");
+		name = "moveable_item_nailgun";
+		break;
+
+	case napalm:
+		//gameLocal.Printf("Spawned: napalm\n");
+		name = "moveable_item_napalmgun";
+		break;
+
+	case rail:
+		//gameLocal.Printf("Spawned: rail\n");
+		name = "moveable_item_railgun";
+		break;
+
+	case rocket:
+		//gameLocal.Printf("Spawned: rocket\n");
+		name = "moveable_item_rocketlauncher";
+		break;
+
+	case shotgun:
+		//gameLocal.Printf("Spawned: shotgun\n");
+		//name = "weapon_shotgun";
+		name = "moveable_item_shotgun";
+		break;
+
+	default:
+		gameLocal.Printf("Weapon number is out of bounds!: %d\n", num);
+		break;
+	}
+
+
+
+	idDict args;
+	args.Set("classname", name);
+
+	idEntity* weapon = NULL;
+	gameLocal.SpawnEntityDef(args, &weapon);
+
+	if (weapon)
+	{
+		weapon->SetOrigin(org);
+		weapon->SetAngles(angles);
+		gameLocal.Printf("Spawned a weapon on shop use!\n");
+	}
+	else
+	{
+		gameLocal.Printf("Could not spawn weapon on shop use!\n");
+	}
+}

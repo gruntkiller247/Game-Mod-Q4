@@ -5225,8 +5225,10 @@ void idAI::spawnWeapon()
 	switch (num) 
 	{
 	case blaster:
-		gameLocal.Printf("Spawned: blaster\n");
-		name = "weapon_blaster";
+		//gameLocal.Printf("Spawned: blaster\n");
+		//name = "weapon_blaster";
+		//blaster can't be dropped by player so no reason to give it to them
+		name = "moveable_item_shotgun";
 		break;
 
 	case dmg:

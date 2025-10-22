@@ -58,6 +58,32 @@ void Cmd_dropWeapon_f(const idCmdArgs& args)
 	gameLocal.Printf("%s", msg);
 }
 
+void Cmd_spawnWeapon_f(const idCmdArgs& args)
+{
+	idPlayer* p;
+	p = gameLocal.GetLocalPlayer();
+	char* msg;
+
+	if (gameLocal.isMultiplayer || !gameLocal.CheatsOk())
+	{
+		return;
+	}
+
+	if (!p)
+	{
+		msg = ("Did not find player!\n");
+	}
+	else
+	{
+		msg = ("Found the player!\nDropping the weapon!\n");
+		//p->SetWeaponMatt(-1);
+		
+		p->spawnWeapon();
+	}
+
+	gameLocal.Printf("%s", msg);
+}
+
 
 /*
 ==================
@@ -3084,7 +3110,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	
 	//mattMod
 	cmdSystem->AddCommand("drop", Cmd_dropWeapon_f,CMD_FL_GAME|CMD_FL_CHEAT, "Drops the player's current weapon from the inventory!");
-	//cmdSystem->AddCommand( "god",					Cmd_God_f,					CMD_FL_GAME|CMD_FL_CHEAT,	"enables god mode" );
+	cmdSystem->AddCommand("spw", Cmd_spawnWeapon_f, CMD_FL_GAME|CMD_FL_CHEAT, "Spawns a random weapon at the player's feetQ!");
 
 	cmdSystem->AddCommand( "game_memory",			idClass::DisplayInfo_f,		CMD_FL_GAME,				"displays game class info" );
 	cmdSystem->AddCommand( "listClasses",			idClass::ListClasses_f,		CMD_FL_GAME,				"lists game classes" );

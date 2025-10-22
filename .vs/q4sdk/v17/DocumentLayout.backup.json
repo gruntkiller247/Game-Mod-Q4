@@ -34,21 +34,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SysCmds.cpp",
-              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\gamesys\\SysCmds.cpp",
-              "RelativeDocumentMoniker": "game\\gamesys\\SysCmds.cpp",
-              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\gamesys\\SysCmds.cpp",
-              "RelativeToolTip": "game\\gamesys\\SysCmds.cpp",
-              "ViewState": "AgIAACYAAAAAAAAAAAApwDUAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-20T15:13:21.752Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
@@ -67,13 +54,26 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SysCmds.cpp",
+              "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\gamesys\\SysCmds.cpp",
+              "RelativeDocumentMoniker": "game\\gamesys\\SysCmds.cpp",
+              "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\gamesys\\SysCmds.cpp",
+              "RelativeToolTip": "game\\gamesys\\SysCmds.cpp",
+              "ViewState": "AgIAABkMAAAAAAAAAABgPSgMAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-20T15:13:21.752Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Player.h",
               "RelativeDocumentMoniker": "game\\Player.h",
               "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Player.h",
               "RelativeToolTip": "game\\Player.h",
-              "ViewState": "AgIAAAYBAAAAAAAAAAAQwBUBAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAYBAAAAAAAAAAAQwBYBAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-10-12T00:28:23.52Z",
               "EditorCaption": ""
@@ -86,7 +86,7 @@
               "RelativeDocumentMoniker": "game\\Player.cpp",
               "ToolTip": "C:\\Users\\Matthew\\source\\repos\\gruntkiller247\\Game-Mod-Q4\\game\\Player.cpp",
               "RelativeToolTip": "game\\Player.cpp",
-              "ViewState": "AgIAALkXAAAAAAAAAAAQwM4XAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABo4AAAAAAAAAACMPSI4AAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-10-12T00:28:24.148Z",
               "EditorCaption": ""
@@ -113,8 +113,7 @@
               "RelativeToolTip": "game\\Weapon.h",
               "ViewState": "AgIAAOUAAAAAAAAAAAAQwPQAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-10-06T16:38:37.679Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-06T16:38:37.679Z"
             },
             {
               "$type": "Document",
@@ -126,8 +125,7 @@
               "RelativeToolTip": "game\\Weapon.cpp",
               "ViewState": "AgIAAEgNAAAAAAAAAACMPVENAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-03T15:19:08.595Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-03T15:19:08.595Z"
             }
           ]
         }
