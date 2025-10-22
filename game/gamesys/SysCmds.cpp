@@ -32,6 +32,44 @@
 #endif
 
 //mattMod
+
+//used for the GUI spawn weapon in main menu gui
+void Cmd_spawnWeapon_fui(const idCmdArgs& args)
+{
+	idPlayer* p;
+	p = gameLocal.GetLocalPlayer();
+	char* msg;
+
+	if (gameLocal.isMultiplayer || !gameLocal.CheatsOk())
+	{
+		return;
+	}
+
+	if (!p)
+	{
+		msg = ("Did not find player with UI stuff!\n");
+	}
+	else
+	{
+		msg = ("Found the player with UI stuff!\nDropping the weapon!\n");
+		//p->SetWeaponMatt(-1);
+
+		if (p->points >= 50)
+		{
+			p->spawnWeapon();
+			p->points -= 50;
+		}
+		else
+		{
+			msg = "Player does not have enough points to buy a weapon!\n";
+		}
+		
+	}
+
+	gameLocal.Printf("%s", msg);
+}
+
+//used for the X press
 void Cmd_dropWeapon_f(const idCmdArgs& args)
 {
 	idPlayer *p;
@@ -3111,6 +3149,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	//mattMod
 	cmdSystem->AddCommand("drop", Cmd_dropWeapon_f,CMD_FL_GAME|CMD_FL_CHEAT, "Drops the player's current weapon from the inventory!");
 	cmdSystem->AddCommand("spw", Cmd_spawnWeapon_f, CMD_FL_GAME|CMD_FL_CHEAT, "Spawns a random weapon at the player's feetQ!");
+	cmdSystem->AddCommand("spwUI", Cmd_spawnWeapon_fui, CMD_FL_GAME | CMD_FL_CHEAT, "Used by the gui to spawn a random weapon for points");
 
 	cmdSystem->AddCommand( "game_memory",			idClass::DisplayInfo_f,		CMD_FL_GAME,				"displays game class info" );
 	cmdSystem->AddCommand( "listClasses",			idClass::ListClasses_f,		CMD_FL_GAME,				"lists game classes" );

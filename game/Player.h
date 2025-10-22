@@ -277,6 +277,7 @@ public:
 	//mattMod
 	void					DropWeaponMatt(void);
 	void	spawnWeapon();
+	//buyMenu = NULL;
 	
 	//point value for store
 	int points = 0;

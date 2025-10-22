@@ -3469,6 +3469,17 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 		
 		_hud->SetStateString("playerPointsValue", va("%d", points));
 	}
+
+	/*temp2 = _hud->State().GetString("storeBuy", "-1");
+
+	if (!temp2 || temp2 == "-1")
+	{
+		gameLocal.Printf("StoreBuy not found!\n");
+	}
+	else
+	{
+		
+	}*/
 	
 
 	temp = _hud->State().GetInt ( "player_health", "-1" );
