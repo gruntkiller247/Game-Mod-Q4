@@ -21,3 +21,7 @@ Napalm Gun - projectile's gravity, splash dmg
 Railgun - dmg, mag size, //this gun does not want to be edited crashes the game consistently even on just changing the mag size; Gonna skip
 
 In addition, some weapons can roll with these unique effects:
+Not implemented!
+
+Here is a link to the zip download of the mod:
+https://drive.google.com/file/d/1bllIu3KqERZagbUUR6ZVw8f5oQbxwNsB/view?usp=drive_link
